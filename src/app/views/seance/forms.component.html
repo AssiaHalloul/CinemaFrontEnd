@@ -36,7 +36,7 @@
               class="form-control"
               name="evenement"
               [ngClass]="{ 'is-invalid': submitted && f.evenement.errors }">
-                <option [value]="default" selected>Select Role</option>
+                <option value="" selected disabled>Select Evenement</option>
                 <!-- <option *ngFor="let role of roles" [value]="role">{{role}}</option> -->
               </select>
               <div *ngIf="submitted && f.evenement.errors" class="invalid-feedback">
@@ -50,7 +50,7 @@
               <select id="select1" name="film" class="form-control" formControlName="film"
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.film.errors }">
-              <option [value]="default" selected>Select film</option>
+              <option value="" selected disabled>Select film</option>
               <!-- <option *ngFor="let film of films" [ngValue]="film">{{film.id}}</option> -->
               </select>
               <div *ngIf="submitted && f.film.errors" class="invalid-feedback">
@@ -64,7 +64,7 @@
               <select id="select1" name="salle" class="form-control" formControlName="salle"
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.salle.errors }">
-              <option [value]="default" selected>Select salle</option>
+              <option value="" selected disabled>Select salle</option>
               <!-- <option *ngFor="let salle of salles" [ngValue]="salle">{{salle.id}}</option> -->
               </select>
               <div *ngIf="submitted && f.salle.errors" class="invalid-feedback">

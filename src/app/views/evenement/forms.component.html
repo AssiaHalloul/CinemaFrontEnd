@@ -81,7 +81,7 @@
               class="form-control"
               name="typeEvent"
               [ngClass]="{ 'is-invalid': submitted && f.typeEvent.errors }">
-                <option [value]="default" selected>Select Role</option>
+                <option value="" selected disabled>Select Role</option>
                 <!-- <option *ngFor="let role of roles" [value]="role">{{role}}</option> -->
               </select>
               <div *ngIf="submitted && f.typeEvent.errors" class="invalid-feedback">
@@ -95,7 +95,7 @@
               <select id="select1" name="film" class="form-control" formControlName="film"
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.film.errors }">
-              <option [value]="default" selected>Select film</option>
+              <option value="" selected disabled>Select film</option>
               <!-- <option *ngFor="let film of films" [ngValue]="film">{{film.id}}</option> -->
               </select>
               <div *ngIf="submitted && f.film.errors" class="invalid-feedback">

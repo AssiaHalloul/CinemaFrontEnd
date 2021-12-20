@@ -142,13 +142,13 @@
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || typeModifie.untouched"> Veuillez Choisir un role</div>
                         </div>
 
+                        <!-- [selected] = "nationalite.id == personne.nationalite.id" -->
                         <div class="form-group">
-                          <label for="nationalie_name">Nationalite*</label>
-                          <select class="form-control" name="nationalite" id="nationalie_name" 
+                          <label for="nationalie_name">Nationalite*</label> 
+                          <select class="form-control" name="nationalite" id="nationalie_name"
                           [(ngModel)]="personne.nationalite"  (blur)="validateValue(nationaliteModifie.value)" (change)="validateValue(nationaliteModifie.value)" #nationaliteModifie="ngModel"
                           [class.is-invalid]="valueHasError && nationaliteModifie.touched">
-                            <option *ngFor="let nationalite of nationalites" [ngValue]="nationalite"
-                            [selected] = "nationalite.id == personne.nationalite.id" >
+                            <option *ngFor="let nationalite of nationalites" [ngValue]="nationalite">
                                 {{ nationalite.libelle }}
                             </option>
                           </select>

@@ -117,7 +117,7 @@
                 <select id="select1" name="nationalite" class="form-control" formControlName="nationalite"
                   class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.nationalite.errors }">
-                  <option [value]="default" selected>Select Nationalite</option>
+                  <option value="" selected disabled>Select Nationalite</option>
                   <option *ngFor="let nationalite of nationalites" [ngValue]="nationalite">{{nationalite.libelle}}</option>
                 </select>
                 <div *ngIf="submitted && f.nationalite.errors" class="invalid-feedback">
@@ -132,7 +132,7 @@
                 <select id="select1" name="genre" class="form-control" formControlName="genre"
                   class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.genre.errors }">
-                  <option [value]="default" selected>Select genre</option>
+                  <option value="" selected disabled>Select genre</option>
                   <option *ngFor="let genre of genres" [ngValue]="genre">{{genre.nom}}</option>
                 </select>
                 <div *ngIf="submitted && f.genre.errors" class="invalid-feedback">
@@ -147,7 +147,7 @@
                 <select id="select1" name="statue" class="form-control" formControlName="statue"
                   class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.statue.errors }">
-                  <option [value]="default" selected>Select status</option>
+                  <option value="" selected disabled>Select status</option>
                   <option *ngFor="let status of allstatus" [ngValue]="status.value">{{status.value}}</option>
                 </select>
                 <div *ngIf="submitted && f.statue.errors" class="invalid-feedback">
@@ -162,6 +162,7 @@
                 <select id="select1" name="realisateur" class="form-control" formControlName="realisateur"
                   class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.realisateur.errors }">
+                  <option value="" selected disabled>Select realisateur</option>
                   <option *ngFor="let realisateur of realisateurs" [ngValue]="realisateur">{{realisateur.nom}}</option>
                 </select>
                 <div *ngIf="submitted && f.realisateur.errors" class="invalid-feedback">
