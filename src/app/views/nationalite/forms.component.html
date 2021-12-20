@@ -1,0 +1,43 @@
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Ajouter un nationalite</strong> 
+          <div class="float-right">
+            <button class="btn btn-sm btn-secondary tooltip-test" [routerLink]="['/nationalite/tables']"
+            title="Filtrer" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="icon-list"></i>
+            </button>
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Libelle</label>
+            <div class="col-md-9">
+              <input
+                  type="text" placeholder="Entrer libelle ..."
+                  formControlName="libelle"
+                  class="form-control"
+                  name="libelle"
+                  [ngClass]="{ 'is-invalid': submitted && f.libelle.errors }"
+                />
+                <div *ngIf="submitted && f.libelle.errors" class="invalid-feedback">
+                  <div *ngIf="f.libelle.errors.required">libelle is required</div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="form.reset()"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </form>
+      </div>
+
+    </div>
+  </div><!--/.row-->
+
+</div>

@@ -1,0 +1,186 @@
+
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Ajouter le film</strong>
+          <div class="float-right">
+            <button class="btn btn-sm btn-secondary tooltip-test" [routerLink]="['/film/tables']"
+                    title="Filtrer" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="icon-list"></i>
+            </button>
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Titre</label>
+              <div class="col-md-9">
+                <input
+                  type="text" placeholder="Entrer Titre ..."
+                  formControlName="titre"
+                  class="form-control"
+                  name="titre"
+                  [ngClass]="{ 'is-invalid': submitted && f.titre.errors }"
+                />
+                <div *ngIf="submitted && f.titre.errors" class="invalid-feedback">
+                  <div *ngIf="f.titre.errors.required">Titre is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Annee</label>
+              <div class="col-md-9">
+                <input
+                  type="Date" placeholder="Entrer Annee ..."
+                  formControlName="annee"
+                  class="form-control"
+                  name="annee"
+                  [ngClass]="{ 'is-invalid': submitted && f.annee.errors }"
+                />
+                <div *ngIf="submitted && f.annee.errors" class="invalid-feedback">
+                  <div *ngIf="f.annee.errors.required">Annee is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Duree</label>
+              <div class="col-md-9">
+                <input
+                  type="text" placeholder="Entrer Duree ..."
+                  formControlName="duree"
+                  class="form-control"
+                  name="duree"
+                  [ngClass]="{ 'is-invalid': submitted && f.duree.errors }"
+                />
+                <div *ngIf="submitted && f.duree.errors" class="invalid-feedback">
+                  <div *ngIf="f.duree.errors.required">Duree is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Description</label>
+              <div class="col-md-9">
+                <input
+                  type="text" placeholder="Entrer Description ..."
+                  formControlName="description"
+                  class="form-control"
+                  name="description"
+                  [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+                />
+                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                  <div *ngIf="f.description.errors.required">Description is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Trailer</label>
+              <div class="col-md-9">
+                <input
+                  type="text" placeholder="Entrer Trailer ..."
+                  formControlName="trailer"
+                  class="form-control"
+                  name="description"
+                  [ngClass]="{ 'is-invalid': submitted && f.trailer.errors }"
+                />
+                <div *ngIf="submitted && f.trailer.errors" class="invalid-feedback">
+                  <div *ngIf="f.trailer.errors.required">trailer is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Poster</label>
+              <div class="col-md-9">
+                <input
+                  type="text" placeholder="Entrer poster ..."
+                  formControlName="poster"
+                  class="form-control"
+                  name="poster"
+                  [ngClass]="{ 'is-invalid': submitted && f.poster.errors }"
+                />
+                <div *ngIf="submitted && f.poster.errors" class="invalid-feedback">
+                  <div *ngIf="f.poster.errors.required">trailer is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Nationalite</label>
+              <div class="col-md-9">
+                <select id="select1" name="nationalite" class="form-control" formControlName="nationalite"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.nationalite.errors }">
+                  <option [value]="default" selected>Select Nationalite</option>
+                  <option *ngFor="let nationalite of nationalites" [ngValue]="nationalite">{{nationalite.libelle}}</option>
+                </select>
+                <div *ngIf="submitted && f.nationalite.errors" class="invalid-feedback">
+                  <div *ngIf="f.nationalite.errors.required">Nationalite is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Genre</label>
+              <div class="col-md-9">
+                <select id="select1" name="genre" class="form-control" formControlName="genre"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.genre.errors }">
+                  <option [value]="default" selected>Select genre</option>
+                  <option *ngFor="let genre of genres" [ngValue]="genre">{{genre.nom}}</option>
+                </select>
+                <div *ngIf="submitted && f.genre.errors" class="invalid-feedback">
+                  <div *ngIf="f.genre.errors.required">genre is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Status</label>
+              <div class="col-md-9">
+                <select id="select1" name="statue" class="form-control" formControlName="statue"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.statue.errors }">
+                  <option [value]="default" selected>Select status</option>
+                  <option *ngFor="let status of allstatus" [ngValue]="status.value">{{status.value}}</option>
+                </select>
+                <div *ngIf="submitted && f.statue.errors" class="invalid-feedback">
+                  <div *ngIf="f.statue.errors.required">Status is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Realisateur</label>
+              <div class="col-md-9">
+                <select id="select1" name="realisateur" class="form-control" formControlName="realisateur"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.realisateur.errors }">
+                  <option *ngFor="let realisateur of realisateurs" [ngValue]="realisateur">{{realisateur.nom}}</option>
+                </select>
+                <div *ngIf="submitted && f.realisateur.errors" class="invalid-feedback">
+                  <div *ngIf="f.realisateur.errors.required">Realisateur is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <button type="reset" class="btn btn-sm btn-danger" (click)="form.reset()"><i class="fa fa-ban"></i> Reset</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div><!--/.row-->
+
+</div>
+

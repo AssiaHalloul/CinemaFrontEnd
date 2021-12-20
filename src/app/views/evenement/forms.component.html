@@ -1,0 +1,117 @@
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Ajouter un evenement</strong> 
+          <div class="float-right">
+            <button class="btn btn-sm btn-secondary tooltip-test" [routerLink]="['/evenement/tables']"
+            title="Filtrer" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="icon-list"></i>
+            </button>
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Titre</label>
+            <div class="col-md-9">
+              <input
+                  type="text" placeholder="Entrer titre ..."
+                  formControlName="titre"
+                  class="form-control"
+                  name="titre"
+                  [ngClass]="{ 'is-invalid': submitted && f.titre.errors }"
+                />
+                <div *ngIf="submitted && f.titre.errors" class="invalid-feedback">
+                  <div *ngIf="f.titre.errors.required">titre is required</div>
+                </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Description</label>
+            <div class="col-md-9">
+              <input
+                  type="text" placeholder="Entrer Description ..."
+                  formControlName="description"
+                  class="form-control"
+                  name="description"
+                  [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+                />
+                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                  <div *ngIf="f.description.errors.required">description is required</div>
+                </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Duree</label>
+            <div class="col-md-9">
+              <input
+                  type="text" placeholder="Entrer duree ..."
+                  formControlName="duree"
+                  class="form-control"
+                  name="duree"
+                  [ngClass]="{ 'is-invalid': submitted && f.duree.errors }"
+                />
+                <div *ngIf="submitted && f.duree.errors" class="invalid-feedback">
+                  <div *ngIf="f.duree.errors.required">duree is required</div>
+                </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Date d'evenement</label>
+            <div class="col-md-9">
+              <input
+                type="date" placeholder="Entrer date d'evenement ..." id="date-input"
+                formControlName="date"
+                class="form-control"
+                name="date"
+                [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
+              />
+              <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                <div *ngIf="f.date.errors.required">date d'evenement is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Type Evenement</label>
+            <div class="col-md-9">
+              <select id="select1" name="typeEvent" class="form-control" formControlName="typeEvent"
+              class="form-control"
+              name="typeEvent"
+              [ngClass]="{ 'is-invalid': submitted && f.typeEvent.errors }">
+                <option [value]="default" selected>Select Role</option>
+                <!-- <option *ngFor="let role of roles" [value]="role">{{role}}</option> -->
+              </select>
+              <div *ngIf="submitted && f.typeEvent.errors" class="invalid-feedback">
+                <div *ngIf="f.typeEvent.errors.required">type d'evenement is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Film</label>
+            <div class="col-md-9">
+              <select id="select1" name="film" class="form-control" formControlName="film"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.film.errors }">
+              <option [value]="default" selected>Select film</option>
+              <!-- <option *ngFor="let film of films" [ngValue]="film">{{film.id}}</option> -->
+              </select>
+              <div *ngIf="submitted && f.film.errors" class="invalid-feedback">
+                <div *ngIf="f.film.errors.required">film is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="form.reset()"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </form>
+      </div>
+
+    </div>
+  </div><!--/.row-->
+
+</div>

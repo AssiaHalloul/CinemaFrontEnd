@@ -1,0 +1,46 @@
+
+
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Ajouter le genre d'un film</strong>
+          <div class="float-right">
+            <button class="btn btn-sm btn-secondary tooltip-test" [routerLink]="['/genre_film/tables']"
+                    title="Filtrer" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="icon-list"></i>
+            </button>
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Nom</label>
+              <div class="col-md-9">
+                <input
+                  type="text" placeholder="Entrer Name ..."
+                  formControlName="nom"
+                  class="form-control"
+                  name="nom"
+                  [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"
+                />
+                <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+                  <div *ngIf="f.nom.errors.required">Name is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <button type="reset" class="btn btn-sm btn-danger" (click)="form.reset()"><i class="fa fa-ban"></i> Reset</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div><!--/.row-->
+
+</div>
+

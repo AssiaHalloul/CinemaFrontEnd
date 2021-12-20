@@ -1,0 +1,102 @@
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Ajouter un Acteur ou Realisateur</strong> 
+          <div class="float-right">
+            <button class="btn btn-sm btn-secondary tooltip-test" [routerLink]="['/personne/tables']"
+            title="Filtrer" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="icon-list"></i>
+            </button>
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Nom</label>
+            <div class="col-md-9">
+              <input
+                  type="text" placeholder="Entrer nom ..."
+                  formControlName="nom"
+                  class="form-control"
+                  name="nom"
+                  [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"
+                />
+                <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+                  <div *ngIf="f.nom.errors.required">nom is required</div>
+                </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Prenom</label>
+            <div class="col-md-9">
+              <input
+                  type="text" placeholder="Entrer prenom ..."
+                  formControlName="prenom"
+                  class="form-control"
+                  name="prenom"
+                  [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"
+                />
+                <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+                  <div *ngIf="f.prenom.errors.required">prenom is required</div>
+                </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Date de naissance</label>
+            <div class="col-md-9">
+              <input
+                type="date" placeholder="Entrer date_naissance ..." id="date-input"
+                formControlName="date_naissance"
+                class="form-control"
+                name="date_naissance"
+                [ngClass]="{ 'is-invalid': submitted && f.date_naissance.errors }"
+              />
+              <div *ngIf="submitted && f.date_naissance.errors" class="invalid-feedback">
+                <div *ngIf="f.date_naissance.errors.required">date de naissance is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Role</label>
+            <div class="col-md-9">
+              <select id="select1" name="type" class="form-control" formControlName="type"
+              class="form-control"
+              name="type"
+              [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+                <option [value]="default" selected>Select Role</option>
+                <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+              </select>
+              <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                <div *ngIf="f.type.errors.required">Role is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Nationalite</label>
+            <div class="col-md-9">
+              <select id="select1" name="nationalite" class="form-control" formControlName="nationalite"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.nationalite.errors }">
+              <option [value]="default" selected>Select Nationalite</option>
+              <option *ngFor="let nationalite of nationalites" [ngValue]="nationalite">{{nationalite.libelle}}</option>
+              </select>
+              <div *ngIf="submitted && f.nationalite.errors" class="invalid-feedback">
+                <div *ngIf="f.nationalite.errors.required">Nationalite is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="form.reset()"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </form>
+      </div>
+
+    </div>
+  </div><!--/.row-->
+
+</div>

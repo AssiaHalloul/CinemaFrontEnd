@@ -1,0 +1,243 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Liste des seances
+          <div class="float-right">
+            <button type="button" class="btn btn-sm btn-primary tooltip-test" data-toggle="modal"
+              [routerLink]="['/seance/forms']"
+               title="Ajouter un seance">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Filtrage:
+              </mat-panel-title>
+              <mat-panel-description>
+                filter les seance selon nom
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="input-group col-md-12">
+                <input type="text" type="text" name="noms" [(ngModel)]="noms" (ngModelChange)="Search()" class="form-control input-lg" placeholder="Search by libelle" />
+                <span class="input-group-btn">
+                          <button class="btn btn-info btn-lg" type="button">
+                              <i class="fa fa-search"></i>
+                          </button>
+                </span>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th (click)="sort('id')">ID&nbsp;<i class="fa fa-sort"></i> </th>
+                <th (click)="sort('date')">date&nbsp;<i class="fa fa-sort"></i></th>
+                <!-- <th (click)="sort('salle')">Film&nbsp;<i class="fa fa-sort"></i></th>
+                <th (click)="sort('evenement')" >evenement&nbsp;<i class="fa fa-sort"></i></th>
+                <th (click)="sort('salle')" >Salle&nbsp;<i class="fa fa-sort"></i></th> -->
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let seance of seances| orderBy:key:reverse |
+              paginate: {
+                  itemsPerPage : 10,
+                  currentPage : page,
+                  totalItems: totalLength
+              }">
+                <td>{{seance.id}}</td>
+                <td>{{seance.date}}</td>
+                <!-- <td>{{seance.film}}</td>
+                <td>{{seance.evenement}}</td>
+                <td>{{seance.salle}}</td> -->
+                <td>
+                  <button type="button" class="btn btn-sm btn-warning tooltip-test"                      
+                  data-toggle="modal"  data-keyboard="false" data-backdrop="static"                  
+                  title="Modifier ce seance" mat-button  (click)="showEditModal(seance)">
+                    <i class="icon-note"></i>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-danger tooltip-test"
+                    data-keyboard="false" data-backdrop="static" data-toggle="modal" 
+                    title="Supprimer ce seance" mat-button (click)="showDeleteModal(seance)">
+                    <i class="icon-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls class="pull-right my-pagination" (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+</div>
+
+<!--Modal-edit -- Personne -->
+<div bsModal #warningModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [config]="{backdrop: 'static'}"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-warning" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modification d'un seance</h4>
+        <button type="button" class="close" (click)="warningModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="animated fadeIn">
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <!-- Nav tabs -->
+              <tabset>
+                <tab>
+                  <ng-template tabHeading><i class="icon-list"></i> Informations</ng-template>
+                  <form #ModelEditForm="ngForm">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="name">Date*</label>
+                          <input type="text" [class.is-invalid]="date.invalid && date.touched" class="form-control"
+                                 name="date" [(ngModel)]="seance.date" #date="ngModel" required />
+                          <div class="alert alert-danger" [class.d-none]="date.valid || date.untouched"> Le champ date du
+                            seance est obligatoire </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="event_name">Film*</label>
+                          <select class="form-control" name="film" id="event_name" 
+                          [(ngModel)]="seance.film"  (blur)="validateValue(filmModifie.value)" (change)="validateValue(filmModifie.value)" #filmModifie="ngModel"
+                          [class.is-invalid]="valueHasError && filmModifie.touched">
+                            <option *ngFor="let role of roles" [ngValue]="role" >
+                                {{role }}
+                            </option>
+                          </select>
+                          <div class="alert alert-danger" [class.d-none]="!valueHasError || filmModifie.untouched"> Veuillez Choisir une film</div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="film_name">evenement*</label>
+                          <select class="form-control" name="evenement" id="evenement_name" 
+                          [(ngModel)]="seance.evenement"  (blur)="validateValue(evenementModifie.value)" (change)="validateValue(evenementModifie.value)" #evenementModifie="ngModel"
+                          [class.is-invalid]="valueHasError && evenementModifie.touched">
+                            <option *ngFor="let role of roles" [ngValue]="role" >
+                              {{role }}
+                            </option>
+                          </select>
+                          <div class="alert alert-danger" [class.d-none]="!valueHasError || evenementModifie.untouched"> Veuillez Choisir une evenement</div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="salle_name">Salle*</label>
+                          <select class="form-control" name="salle" id="salle_name" 
+                          [(ngModel)]="seance.salle"  (blur)="validateValue(salleModifie.value)" (change)="validateValue(salleModifie.value)" #salleModifie="ngModel"
+                          [class.is-invalid]="valueHasError && salleModifie.touched">
+                            <option *ngFor="let role of roles" [ngValue]="role" >
+                              {{role }}
+                            </option>
+                          </select>
+                          <div class="alert alert-danger" [class.d-none]="!valueHasError || salleModifie.untouched"> Veuillez Choisir une salle</div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </form>
+                </tab>
+              </tabset>
+            </div>
+            <!--/.col-->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="editSeance(seance.id)"
+                [disabled]="ModelEditForm.form.invalid">
+          Modifier
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+
+
+<!--Modal-edit -- Personne -->
+<div bsModal #warningDeleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [config]="{backdrop: 'static'}"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Supprimer ce seance</h4>
+        <button type="button" class="close" (click)="warningDeleteModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="animated fadeIn">
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <!-- Nav tabs -->
+              <h2>Are you sure you want to delete this Object</h2>
+            </div>
+            <!--/.col-->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteSeance(seance.id)">
+          Supprimer
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<style>
+  #libelle-search-input{
+      padding: 3px;
+      border: solid 1px #E4E4E4;
+      border-radius: 6px;
+      background-color: #fff;
+  }
+  
+  #libelle-search-input input{
+      border: 0;
+      box-shadow: none;
+  }
+  
+  #libelle-search-input button{
+      margin: 2px 0 0 0;
+      background: none;
+      box-shadow: none;
+      border: 0;
+      color: #666666;
+      padding: 0 8px 0 10px;
+      border-left: solid 1px #ccc;
+  }
+  
+  #libelle-search-input button:hover{
+      border: 0;
+      box-shadow: none;
+      border-left: solid 1px #ccc;
+  }
+  
+  #libelle-search-input .glyphicon-search{
+      font-size: 23px;
+  }
+  </style>
