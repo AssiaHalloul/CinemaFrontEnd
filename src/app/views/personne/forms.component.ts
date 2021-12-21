@@ -20,7 +20,7 @@ export class FormsComponent implements OnInit{
 
   isCollapsed: boolean = false;
   iconCollapse: string = 'icon-arrow-up';
-  new_nationalite:  any;
+  //new_nationalite:  any;
 
   collapsed(event: any): void {
     // console.log(event);
@@ -87,14 +87,12 @@ export class FormsComponent implements OnInit{
       return;
     }
     this.personne =this.form.value;
-    this.new_nationalite = this.form.value.nationalite;
-    console.log('nationalite',this.new_nationalite);
     const dataa = {
       nom : this.personne.nom,
       prenom : this.personne.prenom,
       type: this.personne.type,
       date_naissance : this.personne.date_naissance,
-      nationalite :{"id": this.new_nationalite.id, "libelle": this.new_nationalite.libelle}
+      nationalite :this.personne.nationalite,
     }
     this.personneService.createPersonne(dataa).subscribe(data => {
       this.personne = new Personne();
@@ -102,39 +100,14 @@ export class FormsComponent implements OnInit{
       this.gotoList();
       this._snackBar.open("personne well add",'cancel',{duration: this.durationInSeconds * 700 });
 
-    }, 
-    error => console.log(error));
-    this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 });
+    } ,error => {
+      console.log(error);
+      this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+    });
   }
 
   gotoList() {
     this.router.navigate(['/personne/tables']);
   }
-
-  getNationalite(id) {
-
-  }
-
-  // insertNationalite(): void {
-  //   // this.new_nationalite = this.nationaliteService.getNationalite(this.personne.nationalite).subscribe(res => {
-  //   //   res;
-  //   //   console.log(res);
-  //   // });
-  //   console.log("meeeeeeeeeeeeeessage",this.personne);
-  //   this.new_nationalite = this.personne.nationalite;
-  //   const dataa = {
-  //     nom : this.personne.nom,
-  //     prenom : this.personne.prenom,
-  //     type: this.personne.type,
-  //     date_naissance : this.personne.date_naissance,
-  //     nationalite :{"id": this.new_nationalite.id, "libelle": this.new_nationalite.libelle}
-  //   }
-  //   //this.personne.nationalite={ "id": 5, "libelle": 'libelle 2' };
-  //   this.personneService.createPersonne(dataa).subscribe(res => {
-  //     console.log(res);
-  //     this.getPersonnes();
-  //     this.gotoList();
-  //   });
-  // }
 
 }

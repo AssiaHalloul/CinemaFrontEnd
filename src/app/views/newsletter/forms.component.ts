@@ -69,9 +69,10 @@ export class FormsComponent implements OnInit {
       this.gotoList();
       this._snackBar.open("newsletter well add",'cancel',{duration: this.durationInSeconds * 700 });
 
-    },
-    error => console.log(error));
-    this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 });
+    },error => {
+      console.log(error);
+      this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+    });
   }
 
   gotoList() {

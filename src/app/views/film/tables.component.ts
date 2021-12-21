@@ -68,9 +68,10 @@ export class TablesComponent implements OnInit {
           this.warningDeleteModal.hide();
           this._snackBar.open(" FilmModule well deleted  ",'cancel',{duration: this.durationInSeconds * 700 });
         },
-        error => console.log(error));
+        error => 
+        {console.log(error);
         this._snackBar.open(" this film is already used ",'cancel',{duration: this.durationInSeconds * 700 });
-
+        });
   }
 
   onSubmit() {
@@ -110,15 +111,10 @@ export class TablesComponent implements OnInit {
       this.getFilms();
        this._snackBar.open(" film well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
       },
-      error => console.log(error));
+      error => {
+      console.log(error);
       this._snackBar.open(" Something was wrong",'cancel',{duration: this.durationInSeconds * 700 });
-
+      });
   }
-
-
-
-
-
-
 
 }

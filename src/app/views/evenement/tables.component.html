@@ -19,12 +19,12 @@
                 Filtrage:
               </mat-panel-title>
               <mat-panel-description>
-                filter les evenement selon nom
+                filter les evenement selon titre
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="row">
               <div class="input-group col-md-12">
-                <input type="text" type="text" name="noms" [(ngModel)]="noms" (ngModelChange)="Search()" class="form-control input-lg" placeholder="Search by libelle" />
+                <input type="text" type="text" name="titres" [(ngModel)]="titres" (ngModelChange)="Search()" class="form-control input-lg" placeholder="Search by libelle" />
                 <span class="input-group-btn">
                           <button class="btn btn-info btn-lg" type="button">
                               <i class="fa fa-search"></i>
@@ -43,6 +43,8 @@
                 <th (click)="sort('description')">Description&nbsp;<i class="fa fa-sort"></i></th>
                 <th (click)="sort('duree')" >Duree&nbsp;<i class="fa fa-sort"></i></th>
                 <th (click)="sort('date')" >Date&nbsp;<i class="fa fa-sort"></i></th>
+                <th (click)="sort('film')">film&nbsp;<i class="fa fa-sort"></i></th>
+                <th (click)="sort('typeEvent')">typeEvent&nbsp;<i class="fa fa-sort"></i></th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -56,8 +58,10 @@
                 <td>{{evenement.id}}</td>
                 <td>{{evenement.titre}}</td>
                 <td>{{evenement.description}}</td>
-                <td>{{evenement.durre}}</td>
+                <td>{{evenement.duree}}</td>
                 <td>{{evenement.date}}</td>
+                <td>{{evenement.film.titre}}</td>
+                <td>{{evenement.typeEvent.type_event}}</td>
                 <td>
                   <button type="button" class="btn btn-sm btn-warning tooltip-test"                      
                   data-toggle="modal"  data-keyboard="false" data-backdrop="static"                  
@@ -132,7 +136,7 @@
                           <input class="form-control" name="duree" [(ngModel)]="evenement.duree"
                           id="dureemodifiee" type="duree" required
                            [class.is-invalid]="dureeRmodifiee.invalid && dureeRmodifiee.touched"  #dureeRmodifiee="ngModel"/>
-                      <div class="alert alert-danger" [class.d-none]="dureeRmodifiee.valid || dureeRmodifiee.untouched"> Le champ duree est obligatoire</div>              
+                          <div class="alert alert-danger" [class.d-none]="dureeRmodifiee.valid || dureeRmodifiee.untouched"> Le champ duree est obligatoire</div>              
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || dureeRmodifiee.untouched"> Veuillez Choisir un duree</div>
                         </div>
 
@@ -141,9 +145,7 @@
                           <select class="form-control" name="typeEvent" id="event_name" 
                           [(ngModel)]="evenement.typeEvent"  (blur)="validateValue(typeEventModifie.value)" (change)="validateValue(typeEventModifie.value)" #typeEventModifie="ngModel"
                           [class.is-invalid]="valueHasError && typeEventModifie.touched">
-                            <option *ngFor="let role of roles" [ngValue]="role" >
-                                {{role }}
-                            </option>
+                          <option *ngFor="let eventtype of eventtypes" [ngValue]="eventtype">{{eventtype.type_event}}</option>
                           </select>
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || typeEventModifie.untouched"> Veuillez Choisir une type Event</div>
                         </div>
@@ -153,9 +155,7 @@
                           <select class="form-control" name="film" id="film_name" 
                           [(ngModel)]="evenement.film"  (blur)="validateValue(filmModifie.value)" (change)="validateValue(filmModifie.value)" #filmModifie="ngModel"
                           [class.is-invalid]="valueHasError && filmModifie.touched">
-                            <option *ngFor="let role of roles" [ngValue]="role" >
-                              {{role }}
-                            </option>
+                          <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
                           </select>
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || filmModifie.untouched"> Veuillez Choisir une film</div>
                         </div>

@@ -5,6 +5,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Evenement } from '../../models/evenement.model';
 import { EvenementService } from '../../_services/evenementService/evenement.service';
+import { FilmService } from '../../_services/filmService/film.service';
+import { EventtypeService } from '../../_services/eventtypeService/eventtype.service';
 
 
 @Component({
@@ -18,13 +20,16 @@ export class TablesComponent implements OnInit {
   totalLength: any;
   length: any;
   page: number = 1;
-  nom:any;
-  noms:any;
+  titre:any;
+  titres:any;
+  films:any;
+  eventtypes:any;
 
   @ViewChild('warningModal') public warningModal: ModalDirective;
   @ViewChild('warningDeleteModal') public warningDeleteModal: ModalDirective;
 
-  constructor(private evenementService: EvenementService,
+  constructor(private evenementService: EvenementService, private eventTypeService: EventtypeService,
+    private filmService: FilmService,
     private router: Router, public dialog: MatDialog,
     private route: ActivatedRoute,private _snackBar: MatSnackBar) {}
 
@@ -40,10 +45,16 @@ export class TablesComponent implements OnInit {
     });
   }
 
-  getNationalites(){
-    // this.nationaliteService.getNationalites().subscribe(res => {
-    //   this.nationalites = res;
-    // });
+  getFilms(){
+    this.filmService.getFilms().subscribe(res => {
+      this.films = res;
+    });
+  }
+
+  getEventsTypes(){
+    this.eventTypeService.getEventTypes().subscribe(res => {
+      this.eventtypes = res;
+    });
   }
 
   key: string;
@@ -54,18 +65,17 @@ export class TablesComponent implements OnInit {
   }
 
   Search(){
-    if(this.noms == ""){
+    if(this.titres == ""){
       this.ngOnInit();
     }else{
        this.evenements=this.evenements.filter(res=>{
-        return res.titre.toLocaleLowerCase().match(this.noms.toLocaleLowerCase());
+        return res.titre.toLocaleLowerCase().match(this.titres.toLocaleLowerCase());
        });
     }
   }
 
   showDeleteModal(evenement) {
     this.evenement.id = evenement.id;
-    //this.personne.libelle = personne.libelle;
     this.warningDeleteModal.show();
   }
 
@@ -79,44 +89,31 @@ export class TablesComponent implements OnInit {
           this.warningDeleteModal.hide();
           this._snackBar.open(" evenement well deleted  ",'cancel',{duration: this.durationInSeconds * 700 });
         },
-        error => console.log(error));
+        error => {
+        console.log(error);
         this._snackBar.open(" this evenement is already used ",'cancel',{duration: this.durationInSeconds * 700 });
-
+        });
   }
-
-  // onSubmit() {
-  //   this.personneService.createPersonne(this.personne).subscribe(data => {
-  //     console.log(data)
-  //     this.personne = new Personne();
-  //     this.getPersonnes();
-  //   }, 
-  //   error => console.log(error));
-  // }
 
   id: number;
   showEditModal(evenement) {
     this.evenement = evenement;
-    // this.nationaliteService.getNationalites().subscribe(res => {
-    //   this.nationalites = res;
-    // });
-    
+    this.getFilms();
+    this.getEventsTypes();
     this.warningModal.show();
   }
 
   editEvenement(id): void {
-    // this.update_nationalite = this.personne.nationalite;
-    // this.personne.nationalite ={"id": this.update_nationalite.id, "libelle": this.update_nationalite.libelle}
     this.evenementService.updateEvenement(id, this.evenement).subscribe(res => {
       this.warningModal.hide();
       this.getEvenements();
        this._snackBar.open(" evenement well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
       },
-      error => console.log(error));
+      error =>{ 
+      console.log(error);
       this._snackBar.open(" Something was wrong",'cancel',{duration: this.durationInSeconds * 700 });
-
+      });
   }
-
- 
 
   valueHasError = true;
   validateValue(value) {

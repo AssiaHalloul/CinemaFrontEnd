@@ -18,15 +18,15 @@
             <label class="col-md-3 col-form-label" for="text-input">Date</label>
             <div class="col-md-9">
               <input
-                  type="text" placeholder="Entrer date ..."
-                  formControlName="date"
-                  class="form-control"
-                  name="date"
-                  [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
-                />
-                <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-                  <div *ngIf="f.date.errors.required">date is required</div>
-                </div>
+                type="date" placeholder="Entrer date d'evenement ..." id="date-input"
+                formControlName="date"
+                class="form-control"
+                name="date"
+                [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
+              />
+              <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                <div *ngIf="f.date.errors.required">date de seance is required</div>
+              </div>
             </div>
           </div>
           <div class="form-group row">
@@ -37,7 +37,7 @@
               name="evenement"
               [ngClass]="{ 'is-invalid': submitted && f.evenement.errors }">
                 <option value="" selected disabled>Select Evenement</option>
-                <!-- <option *ngFor="let role of roles" [value]="role">{{role}}</option> -->
+                <option *ngFor="let evenement of evenements" [ngValue]="evenement">{{evenement.titre}}</option>
               </select>
               <div *ngIf="submitted && f.evenement.errors" class="invalid-feedback">
                 <div *ngIf="f.evenement.errors.required">Evenement is required</div>
@@ -51,7 +51,7 @@
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.film.errors }">
               <option value="" selected disabled>Select film</option>
-              <!-- <option *ngFor="let film of films" [ngValue]="film">{{film.id}}</option> -->
+              <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
               </select>
               <div *ngIf="submitted && f.film.errors" class="invalid-feedback">
                 <div *ngIf="f.film.errors.required">film is required</div>
@@ -65,7 +65,7 @@
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.salle.errors }">
               <option value="" selected disabled>Select salle</option>
-              <!-- <option *ngFor="let salle of salles" [ngValue]="salle">{{salle.id}}</option> -->
+              <option *ngFor="let salle of salles" [ngValue]="salle">{{salle.num}}</option>
               </select>
               <div *ngIf="submitted && f.salle.errors" class="invalid-feedback">
                 <div *ngIf="f.salle.errors.required">salle is required</div>

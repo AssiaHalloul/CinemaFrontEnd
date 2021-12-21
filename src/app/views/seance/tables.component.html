@@ -40,9 +40,9 @@
               <tr>
                 <th (click)="sort('id')">ID&nbsp;<i class="fa fa-sort"></i> </th>
                 <th (click)="sort('date')">date&nbsp;<i class="fa fa-sort"></i></th>
-                <!-- <th (click)="sort('salle')">Film&nbsp;<i class="fa fa-sort"></i></th>
+                <th (click)="sort('salle')">Film&nbsp;<i class="fa fa-sort"></i></th>
                 <th (click)="sort('evenement')" >evenement&nbsp;<i class="fa fa-sort"></i></th>
-                <th (click)="sort('salle')" >Salle&nbsp;<i class="fa fa-sort"></i></th> -->
+                <th (click)="sort('salle')" >Salle&nbsp;<i class="fa fa-sort"></i></th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -55,9 +55,9 @@
               }">
                 <td>{{seance.id}}</td>
                 <td>{{seance.date}}</td>
-                <!-- <td>{{seance.film}}</td>
-                <td>{{seance.evenement}}</td>
-                <td>{{seance.salle}}</td> -->
+                <td>{{seance.film.titre}}</td>
+                <td>{{seance.evenement.titre}}</td>
+                <td>{{seance.salle.num}}</td>
                 <td>
                   <button type="button" class="btn btn-sm btn-warning tooltip-test"                      
                   data-toggle="modal"  data-keyboard="false" data-backdrop="static"                  
@@ -105,10 +105,10 @@
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label for="name">Date*</label>
-                          <input type="text" [class.is-invalid]="date.invalid && date.touched" class="form-control"
-                                 name="date" [(ngModel)]="seance.date" #date="ngModel" required />
-                          <div class="alert alert-danger" [class.d-none]="date.valid || date.untouched"> Le champ date du
-                            seance est obligatoire </div>
+                          <input class="form-control" name="date" [(ngModel)]="seance.date"
+                          id="datemodifiee" type="date" required
+                           [class.is-invalid]="dateRmodifiee.invalid && dateRmodifiee.touched"  #dateRmodifiee="ngModel"/>
+                        <div class="alert alert-danger" [class.d-none]="dateRmodifiee.valid || dateRmodifiee.untouched"> Le champ date de seance est obligatoire</div>          
                         </div>
 
                         <div class="form-group">
@@ -116,9 +116,7 @@
                           <select class="form-control" name="film" id="event_name" 
                           [(ngModel)]="seance.film"  (blur)="validateValue(filmModifie.value)" (change)="validateValue(filmModifie.value)" #filmModifie="ngModel"
                           [class.is-invalid]="valueHasError && filmModifie.touched">
-                            <option *ngFor="let role of roles" [ngValue]="role" >
-                                {{role }}
-                            </option>
+                          <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
                           </select>
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || filmModifie.untouched"> Veuillez Choisir une film</div>
                         </div>
@@ -128,9 +126,7 @@
                           <select class="form-control" name="evenement" id="evenement_name" 
                           [(ngModel)]="seance.evenement"  (blur)="validateValue(evenementModifie.value)" (change)="validateValue(evenementModifie.value)" #evenementModifie="ngModel"
                           [class.is-invalid]="valueHasError && evenementModifie.touched">
-                            <option *ngFor="let role of roles" [ngValue]="role" >
-                              {{role }}
-                            </option>
+                          <option *ngFor="let evenement of evenements" [ngValue]="evenement">{{evenement.titre}}</option>
                           </select>
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || evenementModifie.untouched"> Veuillez Choisir une evenement</div>
                         </div>
@@ -140,9 +136,7 @@
                           <select class="form-control" name="salle" id="salle_name" 
                           [(ngModel)]="seance.salle"  (blur)="validateValue(salleModifie.value)" (change)="validateValue(salleModifie.value)" #salleModifie="ngModel"
                           [class.is-invalid]="valueHasError && salleModifie.touched">
-                            <option *ngFor="let role of roles" [ngValue]="role" >
-                              {{role }}
-                            </option>
+                          <option *ngFor="let salle of salles" [ngValue]="salle">{{salle.num}}</option>
                           </select>
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || salleModifie.untouched"> Veuillez Choisir une salle</div>
                         </div>

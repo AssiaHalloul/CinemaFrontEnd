@@ -65,9 +65,9 @@ export class TablesComponent implements OnInit {
           this.warningDeleteModal.hide();
           this._snackBar.open(" event type well deleted  ",'cancel',{duration: this.durationInSeconds * 700 });
         },
-        error => console.log(error));
+        error => {console.log(error);
         this._snackBar.open(" this genre is already used ",'cancel',{duration: this.durationInSeconds * 700 });
-
+        });
   }
 
   onSubmit() {
@@ -96,9 +96,10 @@ export class TablesComponent implements OnInit {
       this.warningModal.hide();
       this.getEventTypes();
        this._snackBar.open(" Event type well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
-      },
-      error => console.log(error));
-      this._snackBar.open(" Something was wrong",'cancel',{duration: this.durationInSeconds * 700 });
+      },error => {
+        console.log(error);
+        this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+      });
 
   }
 

@@ -70,24 +70,15 @@ export class FormsComponent implements OnInit{
       this.gotoList();
       this._snackBar.open("nationalite well add",'cancel',{duration: this.durationInSeconds * 700 });
 
-    }, 
-    error => console.log(error));
-    this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 });
+    }
+    ,error => {
+      console.log(error);
+      this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+    });
   }
 
   gotoList() {
     this.router.navigate(['/nationalite/tables']);
   }
-
-  // insertNationalite(): void {
-  //   const data = {
-  //     libelle: this.nationalite.libelle,
-  //   };
-  //   this.nationaliteService.createNationalite(data).subscribe(res => {
-  //     console.log(res);
-  //     this.getNationalites();
-  //     this.gotoList();
-  //   });
-  // }
 
 }

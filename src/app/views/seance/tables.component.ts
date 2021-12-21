@@ -5,6 +5,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Seance } from '../../models/seance.model';
 import { SeanceService } from '../../_services/SeanceService/seance.service';
+import { EvenementService } from '../../_services/evenementService/evenement.service';
+import { FilmService } from '../../_services/filmService/film.service';
+import { SalleService } from '../../_services/salleService/salle.service';
 
 
 @Component({
@@ -20,11 +23,16 @@ export class TablesComponent implements OnInit {
   page: number = 1;
   nom:any;
   noms:any;
+  films:any;
+  salles:any;
+  evenements:any;
 
   @ViewChild('warningModal') public warningModal: ModalDirective;
   @ViewChild('warningDeleteModal') public warningDeleteModal: ModalDirective;
 
   constructor(private seanceService: SeanceService,
+    private evenementService: EvenementService, private salleService: SalleService,
+    private filmService: FilmService,
     private router: Router, public dialog: MatDialog,
     private route: ActivatedRoute,private _snackBar: MatSnackBar) {}
 
@@ -39,11 +47,22 @@ export class TablesComponent implements OnInit {
       console.log(res);
     });
   }
+  getEvenements(){
+    this.evenementService.getEvenements().subscribe(res => {
+      this.evenements = res;
+    });
+  }
 
-  getNationalites(){
-    // this.nationaliteService.getNationalites().subscribe(res => {
-    //   this.nationalites = res;
-    // });
+  getFilms(){
+    this.filmService.getFilms().subscribe(res => {
+      this.films = res;
+    });
+  }
+
+  getSalles(){
+    this.salleService.getSalles().subscribe(res => {
+      this.salles = res;
+    });
   }
 
   key: string;
@@ -65,7 +84,6 @@ export class TablesComponent implements OnInit {
 
   showDeleteModal(seance) {
     this.seance.id = seance.id;
-    //this.personne.libelle = personne.libelle;
     this.warningDeleteModal.show();
   }
 
@@ -79,41 +97,30 @@ export class TablesComponent implements OnInit {
           this.warningDeleteModal.hide();
           this._snackBar.open(" Seance well deleted  ",'cancel',{duration: this.durationInSeconds * 700 });
         },
-        error => console.log(error));
+        error => {console.log(error);
         this._snackBar.open(" this Seance is already used ",'cancel',{duration: this.durationInSeconds * 700 });
-
+        });
   }
 
-  // onSubmit() {
-  //   this.personneService.createPersonne(this.personne).subscribe(data => {
-  //     console.log(data)
-  //     this.personne = new Personne();
-  //     this.getPersonnes();
-  //   }, 
-  //   error => console.log(error));
-  // }
 
   id: number;
   showEditModal(seance) {
     this.seance = seance;
-    // this.nationaliteService.getNationalites().subscribe(res => {
-    //   this.nationalites = res;
-    // });
-    
+    this.getFilms();
+    this.getSalles();
+    this.getEvenements();
     this.warningModal.show();
   }
 
   editSeance(id): void {
-    // this.update_nationalite = this.personne.nationalite;
-    // this.personne.nationalite ={"id": this.update_nationalite.id, "libelle": this.update_nationalite.libelle}
     this.seanceService.updateSeance(id, this.seance).subscribe(res => {
       this.warningModal.hide();
       this.getSeances();
        this._snackBar.open(" Seance well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
       },
-      error => console.log(error));
+      error => {console.log(error);
       this._snackBar.open(" Something was wrong",'cancel',{duration: this.durationInSeconds * 700 });
-
+      });
   }
 
  

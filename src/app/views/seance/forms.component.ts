@@ -3,6 +3,9 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Seance } from '../../models/seance.model';
+import { EvenementService } from '../../_services/evenementService/evenement.service';
+import { FilmService } from '../../_services/filmService/film.service';
+import { SalleService } from '../../_services/salleService/salle.service';
 import { SeanceService } from '../../_services/seanceService/seance.service';
 
 @Component({
@@ -13,12 +16,13 @@ export class FormsComponent implements OnInit{
   durationInSeconds = 5;
 
   constructor(private seanceService: SeanceService, 
+    private evenementService: EvenementService, private salleService: SalleService,
+    private filmService: FilmService,
     private router: Router,
     private formBuilder: FormBuilder,private _snackBar: MatSnackBar) {}
 
   isCollapsed: boolean = false;
   iconCollapse: string = 'icon-arrow-up';
-  new_nationalite:  any;
 
   collapsed(event: any): void {
     // console.log(event);
@@ -34,9 +38,10 @@ export class FormsComponent implements OnInit{
   }
 
   seances:any;
-  nationalites:any;
+  films:any;
+  evenements:any;
+  salles:any;
   seance: Seance = new Seance();
-  roles: any = ['realisateur', 'acteur'];
 
   form: FormGroup;
   submitted = false;
@@ -57,7 +62,9 @@ export class FormsComponent implements OnInit{
       }
     );
     this.getSeances();
-    //this.getNationalites();
+    this.getFilms();
+    this.getEvenements();
+    this.getSalles();
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -69,13 +76,23 @@ export class FormsComponent implements OnInit{
       this.seances = res;
     });
   }
-
-  getNationalites(){
-    // this.nationaliteService.getNationalites().subscribe(res => {
-    //   this.nationalites = res;
-    // });
+  getEvenements(){
+    this.evenementService.getEvenements().subscribe(res => {
+      this.evenements = res;
+    });
   }
 
+  getFilms(){
+    this.filmService.getFilms().subscribe(res => {
+      this.films = res;
+    });
+  }
+
+  getSalles(){
+    this.salleService.getSalles().subscribe(res => {
+      this.salles = res;
+    });
+  }
 
 
   onSubmit() {
@@ -84,13 +101,11 @@ export class FormsComponent implements OnInit{
       return;
     }
     this.seance =this.form.value;
-   // this.new_nationalite = this.form.value.nationalite;
     const dataa = {
       date : this.seance.date,
       film : this.seance.film,
       evenement: this.seance.evenement,
       salle : this.seance.salle,
-     // nationalite :{"id": this.new_nationalite.id, "libelle": this.new_nationalite.libelle}
     }
     this.seanceService.createSeance(dataa).subscribe(data => {
       this.seance = new Seance();
@@ -99,8 +114,9 @@ export class FormsComponent implements OnInit{
       this._snackBar.open("seance well add",'cancel',{duration: this.durationInSeconds * 700 });
 
     }, 
-    error => console.log(error));
+    error => {console.log(error);
     this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 });
+    });
   }
 
   gotoList() {

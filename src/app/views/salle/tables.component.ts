@@ -74,8 +74,9 @@ export class TablesComponent implements OnInit{
             this.warningDeleteModal.hide();
             this._snackBar.open(" salle well deleted  ",'cancel',{duration: this.durationInSeconds * 700 });
           },
-          error => console.log(error));
+          error => {console.log(error);
           this._snackBar.open(" this salle is already used ",'cancel',{duration: this.durationInSeconds * 700 });
+          });
         }
 
 
@@ -91,8 +92,9 @@ export class TablesComponent implements OnInit{
         this.warningModal.hide();
         this.getSalles();
         this._snackBar.open(" salle well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
-      },
-      error => console.log(error));
-      this._snackBar.open(" Something was wrong",'cancel',{duration: this.durationInSeconds * 700 });
+      },error => {
+        console.log(error);
+        this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+      });
     }
 }

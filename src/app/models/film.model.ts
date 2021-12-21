@@ -11,9 +11,9 @@ export class Film {
   description: string;
   trailer: string;
   poster: string;
+  statue: string;
   nationalite: object;
   genre: object;
-  statue: string;
   realisateur: object;
 
 }

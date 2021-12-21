@@ -64,21 +64,13 @@ export class FormsComponent implements OnInit{
       this.getGenres();
       this.gotoList();
       this._snackBar.open("genre well add",'cancel',{duration: this.durationInSeconds * 700 });
-    },
-    error => console.log(error));
-    this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 });
+    }
+    ,error => {
+      console.log(error);
+      this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+    });
   }
 
-  /*insertGenre(): void {
-    const data = {
-      nom: this.genre.nom,
-    };
-    this.genreService.createGenre(data).subscribe(res => {
-      console.log(res);
-      this.getGenres();
-      this.gotoList();
-    });
-  }*/
 
   gotoList() {
     this.router.navigate(['/genre_film/tables']);

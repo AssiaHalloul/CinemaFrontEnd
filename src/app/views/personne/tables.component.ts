@@ -84,19 +84,11 @@ export class TablesComponent implements OnInit {
           this.warningDeleteModal.hide();
           this._snackBar.open(" personne well deleted  ",'cancel',{duration: this.durationInSeconds * 700 });
         },
-        error => console.log(error));
+        error => {console.log(error);
         this._snackBar.open(" this personne is already used ",'cancel',{duration: this.durationInSeconds * 700 });
-
+        });
   }
 
-  // onSubmit() {
-  //   this.personneService.createPersonne(this.personne).subscribe(data => {
-  //     console.log(data)
-  //     this.personne = new Personne();
-  //     this.getPersonnes();
-  //   }, 
-  //   error => console.log(error));
-  // }
 
   id: number;
   showEditModal(personne) {
@@ -109,16 +101,14 @@ export class TablesComponent implements OnInit {
   }
 
   editPersonne(id): void {
-    this.update_nationalite = this.personne.nationalite;
-    this.personne.nationalite ={"id": this.update_nationalite.id, "libelle": this.update_nationalite.libelle}
     this.personneService.updatePersonne(id, this.personne).subscribe(res => {
       this.warningModal.hide();
       this.getPersonnes();
        this._snackBar.open(" personne well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
-      },
-      error => console.log(error));
-      this._snackBar.open(" Something was wrong",'cancel',{duration: this.durationInSeconds * 700 });
-
+      },error => {
+        console.log(error);
+        this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+      });
   }
 
  

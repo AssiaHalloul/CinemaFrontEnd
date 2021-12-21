@@ -77,27 +77,13 @@ export class FormsComponent implements OnInit{
       this.gotoList();
       this._snackBar.open("salle well add",'cancel',{duration: this.durationInSeconds * 700 });
 
-    }, 
-    error => console.log(error));
-    this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 });
+    },error => {
+      console.log(error);
+      this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+    });
   }
 
   gotoList() {
     this.router.navigate(['/salle/tables']);
   }
-
-  // insertSalle(): void {
-  //   const data = {
-  //     num: this.salle.num,
-  //     nombre_places : this.salle.nombre_places,
-  //   };
-  //   this.salleService.createSalle(data).subscribe(res => {
-  //     console.log(res);
-  //     this.getSalles();
-  //     this.gotoList();
-  //   });
-  // }
-
-
-
 }

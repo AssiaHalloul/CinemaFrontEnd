@@ -70,9 +70,9 @@ export class TablesComponent implements OnInit {
           this.warningDeleteModal.hide();
           this._snackBar.open(" newsletter well deleted  ",'cancel',{duration: this.durationInSeconds * 700 });
         },
-        error => console.log(error));
+        error => {console.log(error);
         this._snackBar.open(" this newsletter is already used ",'cancel',{duration: this.durationInSeconds * 700 });
-
+        });
   }
 
   onSubmit() {
@@ -100,16 +100,11 @@ export class TablesComponent implements OnInit {
       this.warningModal.hide();
       this.getNewsLetters();
        this._snackBar.open(" newsletter well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
-      },
-      error => console.log(error));
-      this._snackBar.open(" Something was wrong",'cancel',{duration: this.durationInSeconds * 700 });
-
+      },error => {
+        console.log(error);
+        this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
+      });
   }
-
-
-
-
-
 
 
 }

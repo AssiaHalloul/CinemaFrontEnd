@@ -7,6 +7,6 @@ export class Evenement {
     description: string;
     date: Date;
     poster: string;
-    //film
-    //typeEvent
+    film:object;
+    typeEvent:object;
 }
