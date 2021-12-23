@@ -15,5 +15,6 @@ export class Film {
   nationalite: object;
   genre: object;
   realisateur: object;
-
+  acteurs: object;
+  galleries:object;
 }

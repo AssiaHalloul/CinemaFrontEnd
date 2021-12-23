@@ -50,6 +50,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {Ng2OrderModule} from 'ng2-order-pipe';
+import {MatNativeDateModule} from '@angular/material/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
+
+
+
 
 @NgModule({
   imports: [
@@ -70,7 +81,11 @@ import {Ng2OrderModule} from 'ng2-order-pipe';
     ReactiveFormsModule,
     MatSnackBarModule,
     Ng2SearchPipeModule,
-    Ng2OrderModule
+    Ng2OrderModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ],
   declarations: [
     FormsComponent,

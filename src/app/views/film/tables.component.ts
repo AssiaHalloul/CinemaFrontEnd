@@ -24,8 +24,6 @@ export class TablesComponent implements OnInit {
   titre:any;
   titres:any;
 
-
-
   @ViewChild('warningModal') public warningModal: ModalDirective;
   @ViewChild('warningDeleteModal') public warningDeleteModal: ModalDirective;
 
@@ -36,8 +34,10 @@ export class TablesComponent implements OnInit {
     this.filmService.getFilms().subscribe(res => {
           this.films = res;
           console.log(res);
-        });
+    });
   }
+
+
   key: string;
   reverse : boolean=false;
   sort(key) {

@@ -34,9 +34,9 @@
             </div>
           </mat-expansion-panel>
         </mat-accordion>
-        <div class="card-body">
-          <table class="table table-bordered">
-            <thead>
+        <div class="card-body table-responsive">
+          <table class="table table-hover table-bordered">
+            <thead class="table-secondary">
               <tr>
                 <th (click)="sort('id')">ID&nbsp;<i class="fa fa-sort"></i> </th>
                 <th (click)="sort('nom')">Nom&nbsp;<i class="fa fa-sort"></i></th>
@@ -44,6 +44,7 @@
                 <th (click)="sort('type')" >Role&nbsp;<i class="fa fa-sort"></i></th>
                 <th (click)="sort('date_naissance')" >Date Naissance&nbsp;<i class="fa fa-sort"></i></th>
                 <th (click)="sort('nationalite')">Nationalite&nbsp;<i class="fa fa-sort"></i></th>
+                <th>Photo</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -60,6 +61,11 @@
                 <td>{{personne.type}}</td>
                 <td>{{personne.date_naissance}}</td>
                 <td>{{personne.nationalite.libelle}}</td>
+                <td ><img class="card-img-top img-responsive"
+                  src = "{{this.personneService.host+'/Images/personnes/'+personne.photo}}"
+                  style = "height :250px;width:200px ; align-content: center; text-align: center "
+                  alt="" />
+                </td>   
                 <td>
                   <button type="button" class="btn btn-sm btn-warning tooltip-test"                      
                   data-toggle="modal"  data-keyboard="false" data-backdrop="static"                  
@@ -142,12 +148,12 @@
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || typeModifie.untouched"> Veuillez Choisir un role</div>
                         </div>
 
-                        <!-- [selected] = "nationalite.id == personne.nationalite.id" -->
                         <div class="form-group">
+                          <!-- (selected)="personne.nationalite.id == nationalite.id" -->
                           <label for="nationalie_name">Nationalite*</label> 
                           <select class="form-control" name="nationalite" id="nationalie_name"
                           [(ngModel)]="personne.nationalite"  (blur)="validateValue(nationaliteModifie.value)" (change)="validateValue(nationaliteModifie.value)" #nationaliteModifie="ngModel"
-                          [class.is-invalid]="valueHasError && nationaliteModifie.touched">
+                          [class.is-invalid]="valueHasError && nationaliteModifie.touched"  >
                             <option *ngFor="let nationalite of nationalites" [ngValue]="nationalite">
                                 {{ nationalite.libelle }}
                             </option>
@@ -182,7 +188,7 @@
 
 
 
-<!--Modal-edit -- Personne -->
+<!--Modal-delete -- Personne -->
 <div bsModal #warningDeleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [config]="{backdrop: 'static'}"
      aria-hidden="true">
   <div class="modal-dialog modal-lg modal-danger" role="document">

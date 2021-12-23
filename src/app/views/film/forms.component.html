@@ -13,7 +13,7 @@
             </button>
           </div>
         </div>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data" >
           <div class="card-body">
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Titre</label>
@@ -86,7 +86,7 @@
                   type="text" placeholder="Entrer Trailer ..."
                   formControlName="trailer"
                   class="form-control"
-                  name="description"
+                  name="trailer"
                   [ngClass]="{ 'is-invalid': submitted && f.trailer.errors }"
                 />
                 <div *ngIf="submitted && f.trailer.errors" class="invalid-feedback">
@@ -98,15 +98,12 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Poster</label>
               <div class="col-md-9">
-                <input
-                  type="text" placeholder="Entrer poster ..."
-                  formControlName="poster"
-                  class="form-control"
-                  name="poster"
-                  [ngClass]="{ 'is-invalid': submitted && f.poster.errors }"
-                />
+                <input formControlName="poster" type="file" (change)="onSelectFile($event)" accept="image/png, image/jpeg"
+                class="form-control" name="poster"
+                  [ngClass]="{ 'is-invalid': submitted && f.poster.errors }">
+                <img [src]="imgURL" height="200" alt="Poster" *ngIf="imgURL">
                 <div *ngIf="submitted && f.poster.errors" class="invalid-feedback">
-                  <div *ngIf="f.poster.errors.required">trailer is required</div>
+                  <div *ngIf="f.poster.errors.required">poster is required</div>
                 </div>
               </div>
             </div>
@@ -159,7 +156,7 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Realisateur</label>
               <div class="col-md-9">
-                <select id="select1" name="realisateur" class="form-control" formControlName="realisateur"
+                <select id="select1" name="realisateur" formControlName="realisateur"
                   class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.realisateur.errors }">
                   <option value="" selected disabled>Select realisateur</option>
@@ -171,6 +168,36 @@
               </div>
             </div>
 
+            <div class="form-group row"> 
+              <label class="col-md-3 col-form-label" for="text-input">Acteur</label>
+              <div class="col-md-9">
+                <ng-multiselect-dropdown 
+                  name="acteurs"
+                  formControlName="acteurs"
+                  [placeholder]="'select acteurs'"
+                  [settings]="dropdownSettings"
+                  [data]="dropdownList"
+                  (onSelect)="onItemSelect($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.acteurs.errors }"
+                  (onSelectAll)="onSelectAll($event)">
+              </ng-multiselect-dropdown>
+              <div *ngIf="submitted && f.acteurs.errors" class="invalid-feedback">
+                <div *ngIf="f.acteurs.errors.required">Acteurs is required</div>
+              </div>
+              </div>
+
+            </div>
+
+            <div class="form-group row"> 
+              <label class="col-md-3 col-form-label" for="text-input">Gallerie Film</label>
+              <div class="col-md-9">
+                  <input type="file" formControlName="galleries" name="galleries"
+                  (change)="fileuploads($event)" multiple class="form-control" style="height: 100%;" accept="image/png, image/jpeg">
+              </div>
+              <div *ngFor="let image of images"> 
+                <img [src]="image" style="height: 30px;width: 30px; border-radius: 50%;" alt="Poster" *ngIf="image">
+              </div>
+            </div>
           </div>
 
           <div class="card-footer">
@@ -184,4 +211,6 @@
   </div><!--/.row-->
 
 </div>
+
+
 

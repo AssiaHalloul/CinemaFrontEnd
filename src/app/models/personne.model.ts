@@ -6,6 +6,6 @@ export class Personne {
   prenom: string;
   type: string;
   date_naissance: Date;
-  nationalite?: Nationalite;
+  nationalite?: Nationalite;  
 
 }

@@ -81,7 +81,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     ReactiveFormsModule,
     MatDialogModule,
     ModalModule.forRoot(),
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     AppComponent,

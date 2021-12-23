@@ -12,7 +12,7 @@
             </button>
           </div>
         </div>
-        <div class="card-body">
+        <div class="card-body table-responsive">
 
           <div id="film-search-input">
             <div class="input-group col-md-12">
@@ -27,8 +27,9 @@
 
 
           <br>
-          <table class="table table-bordered">
-            <thead>
+          
+            <table class="table table-hover table-bordered">
+              <thead class="table-secondary">
               <tr>
                 <th (click)="sort('id')">ID&nbsp;<i class="fa fa-sort"></i> </th>
                 <th (click)="sort('titre')">titre&nbsp;<i class="fa fa-sort"></i></th>
@@ -37,6 +38,8 @@
                 <th (click)="sort('genre.nom')">genre&nbsp;<i class="fa fa-sort"></i></th>
                 <th (click)="sort('nationalite.libelle')">nationalite&nbsp;<i class="fa fa-sort"></i></th>
                 <th (click)="sort('realisateur.nom')">realisateur&nbsp;<i class="fa fa-sort"></i></th>
+                <th>acteurs</th>
+                <th>poster</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -53,8 +56,17 @@
                 <td>{{film.duree}}</td>
                 <td>{{film.genre.nom}}</td>
                 <td>{{film.realisateur.nom}}</td>
+                <td> 
+                  <p *ngFor="let acteur of film.acteurs">{{acteur.nom}} {{acteur.prenom}},</p>
+                </td>
                 <td>{{film.nationalite.libelle}}</td>
-                <td>
+                <td ><img class="card-img-top img-responsive"
+                  src = "{{this.filmService.host+'/Images/films/'+film.poster}}"
+                  style = "height :250px;width:200px ; align-content: center; text-align: center "
+
+                  alt="" />
+                </td>               
+                 <td>
                   <button type="button" class="btn btn-sm btn-warning tooltip-test"
                           data-toggle="modal"  data-keyboard="false" data-backdrop="static"
                           title="Modifier le film" mat-button  (click)="showEditModal(film)">

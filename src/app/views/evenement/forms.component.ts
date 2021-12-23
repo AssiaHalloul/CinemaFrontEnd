@@ -42,6 +42,11 @@ export class FormsComponent implements OnInit{
 
   form: FormGroup;
   submitted = false;
+  url="";
+  userFile ;
+  public imagePath;
+  imgURL: any;
+  public message: string;
 
 
   ngOnInit() {
@@ -88,22 +93,48 @@ export class FormsComponent implements OnInit{
     });
   }
 
+  onSelectFile(event) {
+    if (event.target.files.length > 0)
+    {
+      const file = event.target.files[0];
+      this.userFile = file;
+      // this.f['profile'].setValue(file);
+
+      var mimeType = event.target.files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
+      }
+
+      var reader = new FileReader();
+
+      this.imagePath = file;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+      }
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
+    const formData = new  FormData();
     this.evenement =this.form.value;
-    const dataa = {
-      titre : this.evenement.titre,
-      description : this.evenement.description,
-      date: this.evenement.date,
-      duree : this.evenement.duree,
-      poster : this.evenement.poster,
-      film: this.evenement.film,
-      typeEvent: this.evenement.typeEvent,
-    }
-    this.evenementService.createEvenement(dataa).subscribe(data => {
+    formData.append('evenement',JSON.stringify(this.evenement));
+    formData.append('file',this.userFile);
+    // const dataa = {
+    //   titre : this.evenement.titre,
+    //   description : this.evenement.description,
+    //   date: this.evenement.date,
+    //   duree : this.evenement.duree,
+    //   poster : this.evenement.poster,
+    //   film: this.evenement.film,
+    //   typeEvent: this.evenement.typeEvent,
+    // }
+    this.evenementService.createEvenement(formData).subscribe(data => {
       this.evenement = new Evenement();
       this.getEvenements();
       this.gotoList();

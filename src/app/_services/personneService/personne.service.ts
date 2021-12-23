@@ -10,6 +10,8 @@ const baseUrl = 'http://localhost:8080/api/personnes';
   providedIn: 'root'
 })
 export class PersonneService {
+  host:string = "http://localhost:8080";
+
 
   constructor(private http: HttpClient) { }
 
@@ -39,6 +41,10 @@ export class PersonneService {
 
   getRealisateurs(): Observable<Personne[]> {
     return this.http.get<Personne[]>(`${baseUrl}/rechercher`);
+  }
+
+  getActeurs(): Observable<Personne[]> {
+    return this.http.get<Personne[]>(`${baseUrl}/acteurs`);
   }
   
 }

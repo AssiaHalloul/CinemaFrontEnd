@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Genre } from '../../models/genre.model';
 import { GenreService } from '../../_services/genreService/genre.service';
@@ -7,12 +7,11 @@ import { NationaliteService } from '../../_services/nationaliteService/nationali
 import { Film } from '../../models/film.model';
 import { FilmService } from '../../_services/filmService/film.service';
 import { PersonneService } from '../../_services/personneService/personne.service';
-import {Personne} from '../../models/personne.model';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+
+
 @Component({
   templateUrl: 'forms.component.html'
 })
@@ -27,14 +26,33 @@ export class FormsComponent implements OnInit{
   film:any;
   realisateurs: any;
   allstatus= [
-    {id: 1, value: "United States"},
-    {id: 2, value: "Australia"},
-    {id: 3, value: "Canada"}
-
+    {id: 1, value: "En cours"},
+    {id: 2, value: "prochainement"},
   ];
+  url="";
+  userFile ;
+  public imagePath;
+  imgURL: any;
+  public message: string;
+
+  //multiple select
+  dropdownList = [];
+  selectedItems = [];
+  acteurs=[];
+  dropdownSettings:IDropdownSettings;
+
+  // multiple files
+  image: any;
+  filesGallerie;
+  images: any = [];
+  allfiles : any = [];
+
 
   constructor(private genreService: GenreService,private filmService: FilmService,private nationaliteService: NationaliteService,private personneService: PersonneService,
-              private router: Router,private formBuilder: FormBuilder,private _snackBar: MatSnackBar) {}
+              private router: Router,private formBuilder: FormBuilder,private _snackBar: MatSnackBar
+              ) {
+                
+              }
 
   isCollapsed: boolean = false;
   iconCollapse: string = 'icon-arrow-up';
@@ -53,8 +71,19 @@ export class FormsComponent implements OnInit{
   }
 
 
-
   ngOnInit() {
+
+    this.dropdownList = this.getActeurs();
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'nom',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
     this.getNationalities();
     this.getGenres();
     this.getRealisateur();
@@ -71,16 +100,40 @@ export class FormsComponent implements OnInit{
         genre: ['', Validators.required],
         statue: ['', Validators.required],
         realisateur: ['', Validators.required],
+        acteurs: ['', Validators.required],
+        galleries: ['', ],
       },
     );
 
   }
+
+  onItemSelect(item: any) {
+    console.log(item);
+    this.selectedItems.push(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+    this.selectedItems.push(items);
+  }
+
+
 
   getNationalities(){
     this.nationaliteService.getNationalites().subscribe(res => {
       this.nationalites = res;
       console.log(res);
     });
+  }
+
+  getActeurs() : Array<any>{
+    this.personneService.getActeurs().subscribe(res => {
+      this.dropdownList = res;
+    });
+    return this.dropdownList;
+  }
+
+  getObjectListFromData(ids){
+    return this.getActeurs().filter(item => ids.includes(item.id))
   }
 
 
@@ -106,31 +159,89 @@ export class FormsComponent implements OnInit{
     return this.form.controls;
   }
 
+  onSelectFile(event) {
+    if (event.target.files.length > 0)
+    {
+      const file = event.target.files[0];
+      this.userFile = file;
+      // this.f['profile'].setValue(file);
+
+      var mimeType = event.target.files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
+      }
+
+      var reader = new FileReader();
+
+      this.imagePath = file;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+      }
+    }
+
+
+  }
+
+  fileuploads(event){
+    const files = event.target.files;
+    this.filesGallerie = files;
+    console.log(files);
+    if(files){
+      for(let i=0; i< files.length;i++){
+        this.allfiles.push(files[i]);
+        const readerfiles = new FileReader();
+        readerfiles.onload=(filedata)=>{
+          this.image = readerfiles.result + '';
+          this.images.push(this.image);
+        };
+        readerfiles.readAsDataURL(files[i]);
+      }
+    }
+    event.srcElement.value=null;
+  }
 
   onSubmit() {
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
+    console.log("reactive form:" , this.form.value);
+    console.log("les acteurs", this.getObjectListFromData(this.form.value.acteurs.map(item => item.id)) );
+    const formData = new  FormData();
+    this.film =this.form.value;
+    this.film.acteurs = this.getObjectListFromData(this.form.value.acteurs.map(item => item.id));
+    formData.append('film',JSON.stringify(this.film));
+    formData.append('file',this.userFile);
+   // formData.append('files',this.allfiles);
+    for (let i = 0; i < this.filesGallerie.length; i++) {
+      formData.append('files', this.filesGallerie[i]);
+      console.log("single file",this.filesGallerie[i]);
+  }
+    console.log("poster",this.userFile);
+    console.log("files gallerie",this.allfiles);
+    console.log("files gallerie size",this.allfiles.length);
     this.film =this.form.value;
     console.log("eeeeeeeee",this.film);
-    this.filmService.createFilm(this.film).subscribe(data => {
+    this.filmService.createData(formData).subscribe(data => {
         this.film = new Film();
+        //createData(formData)
         console.log("inside");
 
         this.getFilms();
         this.gotoList();
         this._snackBar.open("film well add",'cancel',{duration: this.durationInSeconds * 700 });
       },
-      error => {
-        console.log(error);
-        this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 })
-      });
-  }
-
+      error => {console.log(error);
+    this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 });
+  });
+}
 
   gotoList() {
     this.router.navigate(['/film/tables']);
   }
+
+  
 
 }

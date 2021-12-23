@@ -42,6 +42,11 @@ export class FormsComponent implements OnInit{
 
   form: FormGroup;
   submitted = false;
+  url="";
+  userFile ;
+  public imagePath;
+  imgURL: any;
+  public message: string;
 
 
   ngOnInit() {
@@ -57,6 +62,7 @@ export class FormsComponent implements OnInit{
         date_naissance: ['', Validators.required],
         type: ['', Validators.required],
         nationalite: ['', Validators.required],
+        photo: ['', Validators.required],
       }
     );
     this.getPersonnes();
@@ -79,22 +85,46 @@ export class FormsComponent implements OnInit{
     });
   }
 
+  onSelectFile(event) {
+    if (event.target.files.length > 0)
+    {
+      const file = event.target.files[0];
+      this.userFile = file;
+      // this.f['profile'].setValue(file);
 
+      var mimeType = event.target.files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
+      }
+
+      var reader = new FileReader();
+
+      this.imagePath = file;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+      }
+    }
+  }
 
   onSubmit() {
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
+    const formData = new  FormData();
     this.personne =this.form.value;
-    const dataa = {
-      nom : this.personne.nom,
-      prenom : this.personne.prenom,
-      type: this.personne.type,
-      date_naissance : this.personne.date_naissance,
-      nationalite :this.personne.nationalite,
-    }
-    this.personneService.createPersonne(dataa).subscribe(data => {
+    formData.append('personne',JSON.stringify(this.personne));
+    formData.append('file',this.userFile);
+    // const dataa = {
+    //   nom : this.personne.nom,
+    //   prenom : this.personne.prenom,
+    //   type: this.personne.type,
+    //   date_naissance : this.personne.date_naissance,
+    //   nationalite :this.personne.nationalite,
+    // }
+    this.personneService.createPersonne(formData).subscribe(data => {
       this.personne = new Personne();
       this.getPersonnes();
       this.gotoList();

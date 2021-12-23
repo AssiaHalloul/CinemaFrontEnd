@@ -9,6 +9,7 @@ const baseUrl = 'http://localhost:8080/api/evenements';
   providedIn: 'root'
 })
 export class EvenementService {
+  host:string = "http://localhost:8080";
 
   constructor(private http: HttpClient) { }
 

@@ -77,15 +77,12 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Poster</label>
             <div class="col-md-9">
-              <input
-                type="text" placeholder="Entrer poster ..."
-                formControlName="poster"
-                class="form-control"
-                name="poster"
-                [ngClass]="{ 'is-invalid': submitted && f.poster.errors }"
-              />
+              <input formControlName="poster" type="file" (change)="onSelectFile($event)" accept="image/png, image/jpeg"
+              class="form-control" name="poster"
+                [ngClass]="{ 'is-invalid': submitted && f.poster.errors }">
+              <img [src]="imgURL" height="200" alt="Poster" *ngIf="imgURL">
               <div *ngIf="submitted && f.poster.errors" class="invalid-feedback">
-                <div *ngIf="f.poster.errors.required">trailer is required</div>
+                <div *ngIf="f.poster.errors.required">poster is required</div>
               </div>
             </div>
           </div>

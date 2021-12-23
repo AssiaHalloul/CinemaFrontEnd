@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Film } from '../../models/film.model';
+const baseUrll = 'http://localhost:8080/api/films/poster';
 
 const baseUrl = 'http://localhost:8080/api/films';
 
@@ -9,6 +10,7 @@ const baseUrl = 'http://localhost:8080/api/films';
   providedIn: 'root'
 })
 export class FilmService {
+  host:string = "http://localhost:8080";
 
   constructor(private http: HttpClient) { }
 
@@ -36,6 +38,12 @@ export class FilmService {
     return this.http.get<Film[]>(`${baseUrl}?titre=${titre}`);
   }
 
+  createData(formData: FormData): Observable<any> {
+    return this.http.post(`${baseUrll}`, formData);
+  }
 
+  getImage(id: any): Observable<any> {
+    return this.http.get('http://localhost:8080/imagePoster/'+id);
+  }
 
 }

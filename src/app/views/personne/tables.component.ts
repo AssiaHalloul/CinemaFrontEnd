@@ -7,6 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { NationaliteService } from '../../_services/nationaliteService/nationalite.service';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
