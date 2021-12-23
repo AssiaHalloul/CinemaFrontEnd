@@ -15,10 +15,10 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
         <div class="card-body">
           <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Date</label>
+            <label class="col-md-3 col-form-label" for="dateevent">Date</label>
             <div class="col-md-9">
               <input
-                type="date" placeholder="Entrer date d'evenement ..." id="date-input"
+                type="date" placeholder="Entrer date d'evenement ..." id="dateevent" [min]="todayDate"
                 formControlName="date"
                 class="form-control"
                 name="date"

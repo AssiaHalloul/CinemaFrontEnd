@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,6 +8,7 @@ import { EvenementService } from '../../_services/evenementService/evenement.ser
 import { FilmService } from '../../_services/filmService/film.service';
 import { SalleService } from '../../_services/salleService/salle.service';
 import { SeanceService } from '../../_services/seanceService/seance.service';
+declare let $: any;
 
 @Component({
   templateUrl: 'forms.component.html'
@@ -15,7 +17,7 @@ export class FormsComponent implements OnInit{
 
   durationInSeconds = 5;
 
-  constructor(private seanceService: SeanceService, 
+  constructor(private seanceService: SeanceService,  private datePipe: DatePipe,
     private evenementService: EvenementService, private salleService: SalleService,
     private filmService: FilmService,
     private router: Router,
@@ -45,9 +47,10 @@ export class FormsComponent implements OnInit{
 
   form: FormGroup;
   submitted = false;
-
+  todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
   ngOnInit() {
+    
     this.form = this.formBuilder.group(
       {
         date: ['', Validators.required],
@@ -93,7 +96,6 @@ export class FormsComponent implements OnInit{
       this.salles = res;
     });
   }
-
 
   onSubmit() {
     this.submitted = true;

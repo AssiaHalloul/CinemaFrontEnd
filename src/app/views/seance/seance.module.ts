@@ -1,5 +1,5 @@
 // Angular
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
@@ -76,6 +76,9 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     FormsComponent,
     TablesComponent,
 
-  ]
+  ],
+  providers: [
+    DatePipe,
+  ],
 })
 export class SeanceModule { }

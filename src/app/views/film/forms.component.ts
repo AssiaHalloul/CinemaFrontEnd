@@ -43,9 +43,9 @@ export class FormsComponent implements OnInit{
 
   // multiple files
   image: any;
-  filesGallerie;
+  filesGallerie: FileList;
   images: any = [];
-  allfiles : any = [];
+  allfiles :any = [] ;
 
 
   constructor(private genreService: GenreService,private filmService: FilmService,private nationaliteService: NationaliteService,private personneService: PersonneService,
@@ -199,7 +199,7 @@ export class FormsComponent implements OnInit{
         readerfiles.readAsDataURL(files[i]);
       }
     }
-    event.srcElement.value=null;
+    //event.srcElement.value=null;
   }
 
   onSubmit() {
@@ -214,14 +214,18 @@ export class FormsComponent implements OnInit{
     this.film.acteurs = this.getObjectListFromData(this.form.value.acteurs.map(item => item.id));
     formData.append('film',JSON.stringify(this.film));
     formData.append('file',this.userFile);
-   // formData.append('files',this.allfiles);
+   // formData.append('files',this.filesGallerie);
+   if(this.filesGallerie){
     for (let i = 0; i < this.filesGallerie.length; i++) {
       formData.append('files', this.filesGallerie[i]);
       console.log("single file",this.filesGallerie[i]);
-  }
+    }
+   }
+
     console.log("poster",this.userFile);
     console.log("files gallerie",this.allfiles);
-    console.log("files gallerie size",this.allfiles.length);
+    console.log("files gallerie list",this.allfiles);
+    console.log("files gallerie size",this.filesGallerie);
     this.film =this.form.value;
     console.log("eeeeeeeee",this.film);
     this.filmService.createData(formData).subscribe(data => {
