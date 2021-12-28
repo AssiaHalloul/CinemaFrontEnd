@@ -6,6 +6,10 @@ import { FilmService } from '../../_services/filmService/film.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Nationalite} from '../../models/nationalite.model';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { NationaliteService } from '../../_services/nationaliteService/nationalite.service';
+import { PersonneService } from '../../_services/personneService/personne.service';
+import { GenreService } from '../../_services/genreService/genre.service';
 
 
 @Component({
@@ -23,11 +27,29 @@ export class TablesComponent implements OnInit {
   page: number = 1;
   titre:any;
   titres:any;
+  allstatus= [
+    {id: 1, value: "En cours"},
+    {id: 2, value: "prochainement"},
+  ];
+  nationalites:any;
+  realisateurs:any;
+  genres:any;
+  url="";
+  userFile ;
+  public imagePath;
+  imgURL: any;
+  public message: string;
+
+  //multiple select
+  dropdownList = [];
+  selectedItems = [];
+  acteurs=[];
+  dropdownSettings:IDropdownSettings;
 
   @ViewChild('warningModal') public warningModal: ModalDirective;
   @ViewChild('warningDeleteModal') public warningDeleteModal: ModalDirective;
 
-  constructor(private filmService: FilmService,
+  constructor(private filmService: FilmService,private genreService: GenreService,private nationaliteService: NationaliteService,private personneService: PersonneService,
     private router: Router,private route: ActivatedRoute, private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
@@ -35,6 +57,8 @@ export class TablesComponent implements OnInit {
           this.films = res;
           console.log(res);
     });
+
+
   }
 
 
@@ -54,6 +78,45 @@ export class TablesComponent implements OnInit {
        });
     }
   }
+
+  getNationalities(){
+    this.nationaliteService.getNationalites().subscribe(res => {
+      this.nationalites = res;
+      console.log(res);
+    });
+  }
+
+  getActeurs() : Array<any>{
+    this.personneService.getActeurs().subscribe(res => {
+      this.dropdownList = res;
+    });
+    return this.dropdownList;
+  }
+
+  getObjectListFromData(ids){
+    return this.getActeurs().filter(item => ids.includes(item.id))
+  }
+
+
+  getRealisateur(){
+    this.personneService.getRealisateurs().subscribe(res => {
+      this.realisateurs = res;
+    });
+  }
+
+  getGenres(){
+    this.genreService.getGenres().subscribe(res => {
+      this.genres = res;
+    });
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+  }
+
   getFilms() {
     this.ngOnInit();
   }
@@ -85,28 +148,75 @@ export class TablesComponent implements OnInit {
 
   id: number;
   showEditModal(film) {
+    
+      this.selectedItems = film.acteurs;
+      this.dropdownList = this.getActeurs();
+      this.dropdownSettings = {
+        singleSelection: false,
+        idField: 'id',
+        textField: 'nom',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 3,
+        allowSearchFilter: true
+      };
+      this.getNationalities();
+      this.getActeurs();
+      this.getRealisateur();
+      this.getGenres();
       this.film.id = film.id;
       this.film.titre = film.titre;
       this.film.description = film.description;
       this.film.annee = film.annee;
       this.film.genre = film.genre;
-    this.film.nationalite = film.nationalite;
-    this.film.realisateur = film.realisateur;
-      this.warningModal.show();
-    }
-    showDeleteModal(film) {
-      this.film.id = film.id;
-      this.film.titre = film.titre;
-      this.film.description = film.description;
-      this.film.annee = film.annee;
-      this.film.genre = film.genre;
+      
       this.film.nationalite = film.nationalite;
       this.film.realisateur = film.realisateur;
-        this.warningDeleteModal.show();
+      this.warningModal.show();
+    }
+  
+  showDeleteModal(film) {
+    this.film.id = film.id;
+    this.film.titre = film.titre;
+    this.film.description = film.description;
+    this.film.annee = film.annee;
+    this.film.genre = film.genre;
+    this.film.nationalite = film.nationalite;
+    this.film.realisateur = film.realisateur;
+      this.warningDeleteModal.show();
+  }
+
+  
+  onSelectFile(event) {
+    if (event.target.files.length > 0)
+    {
+      const file = event.target.files[0];
+      this.userFile = file;
+      // this.f['profile'].setValue(file);
+
+      var mimeType = event.target.files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
       }
 
+      var reader = new FileReader();
+
+      this.imagePath = file;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+      }
+    }
+  }
+
   editFilm(id): void {
-    this.filmService.updateFilm(id, this.film).subscribe(res => {
+    console.log("id", id);
+    const formData = new FormData();
+     this.film.acteurs = this.getObjectListFromData(this.selectedItems.map(item => item.id));
+    formData.append('film',JSON.stringify(this.film));
+    formData.append('file',this.userFile);
+    this.filmService.updateFilm(id, formData).subscribe(res => {
       this.warningModal.hide();
       this.getFilms();
        this._snackBar.open(" film well updated  ",'cancel',{duration: this.durationInSeconds * 700 });

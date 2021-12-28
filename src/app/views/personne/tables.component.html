@@ -148,6 +148,17 @@
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || typeModifie.untouched"> Veuillez Choisir un role</div>
                         </div>
 
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label" for="text-input">Photo</label>
+                          <div class="col-md-9">
+                            <input [(ngModel)]="personne.photo" type="file" (change)="onSelectFile($event)" accept="image/png, image/jpeg"
+                            class="form-control" name="photo"
+                            [class.is-invalid]="photomodifier.invalid && photomodifier.touched"  #photomodifier="ngModel">
+                            <img [src]="imgURL" height="200" alt="photo" *ngIf="imgURL">
+                            <div class="alert alert-danger" [class.d-none]="photomodifier.valid || photomodifier.untouched"> Le champ photo est obligatoire</div>              
+                          </div>
+                        </div>
+
                         <div class="form-group">
                           <!-- (selected)="personne.nationalite.id == nationalite.id" -->
                           <label for="nationalie_name">Nationalite*</label> 

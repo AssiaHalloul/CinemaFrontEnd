@@ -12,7 +12,7 @@ import { AuthGuard } from './_guards';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/film/tables',
     pathMatch: 'full',
   },
   {
@@ -57,6 +57,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/seance/seance.module').then(m => m.SeanceModule)
       },
       {
+        path: 'gallerie',
+        loadChildren: () => import('./views/gallerie/gallerie.module').then(m => m.GallerieModule)
+      },
+      {
         path: 'personne',
         loadChildren: () => import('./views/personne/personne.module').then(m => m.PersonneModule)
       },
@@ -79,11 +83,6 @@ export const routes: Routes = [
       {
         path: 'nationalite',
         loadChildren: () => import('./views/nationalite/nationalite.module').then(m => m.NationaliteModule)
-      },
-
-      {
-        path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
     ]
   },

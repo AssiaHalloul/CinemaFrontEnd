@@ -1,0 +1,116 @@
+
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Ajouter la gallerie </strong>
+          <div class="float-right">
+            <button class="btn btn-sm btn-secondary tooltip-test" [routerLink]="['/gallerie/tables']"
+                    title="Filtrer" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="icon-list"></i>
+            </button>
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Titre</label>
+              <div class="col-md-9">
+                <input
+                  type="text" placeholder="Entrer Titre ..."
+                  formControlName="titre"
+                  class="form-control"
+                  name="titre"
+                  [ngClass]="{ 'is-invalid': submitted && f.titre.errors }"
+                />
+                <div *ngIf="submitted && f.titre.errors" class="invalid-feedback">
+                  <div *ngIf="f.titre.errors.required">Titre is required</div>
+                </div>
+              </div>
+            </div>
+
+
+<!--            <div class="form-group row">-->
+<!--              <label class="col-md-3 col-form-label" for="text-input">photos</label>-->
+<!--              <div class="col-md-9">-->
+
+<!--                <img   *ngFor=" let url of urls " [src]="url" alt="" width="100" height="100">-->
+<!--                <input formControlName="image"   type="file" (change)="selectFiles($event)" accept="image/png, image/jpeg"  multiple  />-->
+
+
+<!--              </div>-->
+<!--            </div>-->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Gallerie </label>
+              <div class="col-md-9">
+                <input type="file" formControlName="image" name="image"
+                       (change)="fileuploads($event)" multiple class="form-control" style="height: 100%;" accept="image/png, image/jpeg">
+              </div>
+              <div *ngFor="let image of images">
+                <img [src]="image" style="height: 30px;width: 30px; border-radius: 50%;" alt="Poster" *ngIf="image">
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select1">Film</label>
+              <div class="col-md-9">
+                <select id="select1" name="film" class="form-control" formControlName="film"
+                class="form-control"
+                name="film">
+                  <option value="null" selected>Select Film</option>
+                  <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
+                </select>
+
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="select1">Evenement</label>
+              <div class="col-md-9">
+                <select id="select1" name="evenement" class="form-control" formControlName="evenement"
+                class="form-control"
+                name="evenement">
+                  <option value="null" selected>Select Evenement</option>
+                  <option *ngFor="let evenement of evenements" [ngValue]="evenement">{{evenement.titre}}</option>
+                </select>
+
+              </div>
+            </div>
+
+            <!-- <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Film</label>
+              <div class="col-md-9">
+                <select formControlName="film">
+                  <option value="null" selected>  selectionner un film</option>
+                  <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Evenement</label>
+              <div class="col-md-9">
+                <select formControlName="evenement">
+                  <option value="null" selected>  selectionner un evenement</option>
+                  <option  *ngFor="let evenement of evenements" [ngValue]="evenement">{{evenement.titre}}</option>
+                </select>
+              </div>
+            </div> -->
+
+
+            <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <button type="reset" class="btn btn-sm btn-danger" (click)="form.reset()"><i class="fa fa-ban"></i> Reset</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+  </div><!--/.row-->
+
+</div>
+

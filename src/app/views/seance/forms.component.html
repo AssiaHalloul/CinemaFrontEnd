@@ -15,7 +15,34 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
         <div class="card-body">
           <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="dateevent">Date</label>
+            <label class="col-md-3 col-form-label" for="text-input">Film</label>
+            <div class="col-md-9">
+              <select id="select1" name="film" class="form-control" formControlName="film"
+              class="form-control" > 
+              <option value="null" selected disabled>Select film</option>
+              <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
+              </select>
+              <!-- <div *ngIf="submitted && f.film.errors" class="invalid-feedback">
+                <div *ngIf="f.film.errors.required">film is required</div>
+              </div> -->
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Evenement</label>
+            <div class="col-md-9">
+              <select id="select1" name="evenement" class="form-control" formControlName="evenement"
+              class="form-control"
+              name="evenement">
+                <option value="null" selected disabled>Select Evenement</option>
+                <option *ngFor="let evenement of evenements" [ngValue]="evenement">{{evenement.titre}}</option>
+              </select>
+              <!-- <div *ngIf="submitted && f.evenement.errors" class="invalid-feedback">
+                <div *ngIf="f.evenement.errors.required">Evenement is required</div>
+              </div> -->
+            </div>
+          </div>
+          <!-- <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="dateevent">Date<span style="color: red;">*</span></label>
             <div class="col-md-9">
               <input
                 type="date" placeholder="Entrer date d'evenement ..." id="dateevent" [min]="todayDate"
@@ -28,38 +55,17 @@
                 <div *ngIf="f.date.errors.required">date de seance is required</div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Evenement</label>
+            <label class="col-md-3 col-form-label" for="dateevent">Heure de debut<span style="color: red;">*</span></label>
             <div class="col-md-9">
-              <select id="select1" name="evenement" class="form-control" formControlName="evenement"
-              class="form-control"
-              name="evenement"
-              [ngClass]="{ 'is-invalid': submitted && f.evenement.errors }">
-                <option value="" selected disabled>Select Evenement</option>
-                <option *ngFor="let evenement of evenements" [ngValue]="evenement">{{evenement.titre}}</option>
-              </select>
-              <div *ngIf="submitted && f.evenement.errors" class="invalid-feedback">
-                <div *ngIf="f.evenement.errors.required">Evenement is required</div>
-              </div>
+              <ejs-datetimepicker id='datetimepicker'  formControlName="date"  name="date" (change)="validation()"
+              placeholder='Select a date' [value]='date' [min]='minDate'></ejs-datetimepicker>
             </div>
           </div>
+
           <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Film</label>
-            <div class="col-md-9">
-              <select id="select1" name="film" class="form-control" formControlName="film"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.film.errors }">
-              <option value="" selected disabled>Select film</option>
-              <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
-              </select>
-              <div *ngIf="submitted && f.film.errors" class="invalid-feedback">
-                <div *ngIf="f.film.errors.required">film is required</div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Salle</label>
+            <label class="col-md-3 col-form-label" for="text-input">Salle<span style="color: red;">*</span></label>
             <div class="col-md-9">
               <select id="select1" name="salle" class="form-control" formControlName="salle"
               class="form-control"

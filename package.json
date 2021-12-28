@@ -45,6 +45,7 @@
     "@coreui/icons": "^2.0.0-rc.0",
     "@coreui/icons-angular": "1.0.0-alpha.3",
     "@material/snackbar": "^13.0.0",
+    "@syncfusion/ej2-angular-calendars": "^19.4.38",
     "bootstrap": "^4.6.1",
     "chart.js": "^2.9.4",
     "classlist.js": "^1.1.20150312",

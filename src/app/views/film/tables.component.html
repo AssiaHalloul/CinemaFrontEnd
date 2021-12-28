@@ -55,15 +55,14 @@
                 <td>{{film.description}}</td>
                 <td>{{film.duree}}</td>
                 <td>{{film.genre.nom}}</td>
+                <td>{{film.nationalite.libelle}}</td>
                 <td>{{film.realisateur.nom}}</td>
                 <td> 
-                  <p *ngFor="let acteur of film.acteurs">{{acteur.nom}} {{acteur.prenom}},</p>
+                    <p *ngFor="let acteur of film.acteurs">{{acteur.nom}} {{acteur.prenom}},</p>
                 </td>
-                <td>{{film.nationalite.libelle}}</td>
                 <td ><img class="card-img-top img-responsive"
                   src = "{{this.filmService.host+'/Images/films/'+film.poster}}"
                   style = "height :250px;width:200px ; align-content: center; text-align: center "
-
                   alt="" />
                 </td>               
                  <td>
@@ -91,63 +90,164 @@
   </div>
 </div>
 
-<!--&lt;!&ndash;Modal-edit &#45;&#45; Nationalite &ndash;&gt;-->
-<!--<div bsModal #warningModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [config]="{backdrop: 'static'}"-->
-<!--     aria-hidden="true">-->
-<!--  <div class="modal-dialog modal-lg modal-warning" role="document">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header">-->
-<!--        <h4 class="modal-title">Modification d'un newsletter</h4>-->
-<!--        <button type="button" class="close" (click)="warningModal.hide()" aria-label="Close">-->
-<!--          <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div class="modal-body">-->
-<!--        <div class="animated fadeIn">-->
-<!--          <div class="row">-->
-<!--            <div class="col-md-12 mb-4">-->
-<!--              &lt;!&ndash; Nav tabs &ndash;&gt;-->
-<!--              <tabset>-->
-<!--                <tab>-->
-<!--                  <ng-template tabHeading><i class="icon-list"></i> Informations</ng-template>-->
-<!--                  <form #ModelEditForm="ngForm">-->
-<!--                    <div class="row">-->
-<!--                      <div class="col-sm-12">-->
-<!--                        <div class="form-group">-->
-<!--                          <label for="name">Email*</label>-->
-<!--                          <input type="text" [class.is-invalid]="titre.invalid && titre.touched" class="form-control"-->
-<!--                                 name="libelle" [(ngModel)]="film.titre" #email="ngModel" required />-->
-<!--                          <div class="alert alert-danger" [class.d-none]="titre.valid || email.untouched"> Le champ titre du-->
-<!--                            film est obligatoire </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </form>-->
-<!--                </tab>-->
-<!--              </tabset>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;/.col&ndash;&gt;-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="modal-footer">-->
-<!--        <button type="button" class="btn btn-warning" (click)="editFilm(film.id)"-->
-<!--                [disabled]="ModelEditForm.form.invalid">-->
-<!--          Modifier-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; /.modal-content &ndash;&gt;-->
-<!--  </div>-->
-<!--  &lt;!&ndash; /.modal-dialog &ndash;&gt;-->
-<!--</div>-->
-<!--&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--Modal-edit -- Film -->
+<div bsModal #warningModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [config]="{backdrop: 'static'}"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-warning" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modification d'un film</h4>
+        <button type="button" class="close" (click)="warningModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="animated fadeIn">
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <!-- Nav tabs -->
+              <tabset>
+                <tab>
+                  <ng-template tabHeading><i class="icon-list"></i> Informations</ng-template>
+                  <form #ModelEditForm="ngForm" enctype="multipart/form-data">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label for="name">Titre*</label>
+                          <input type="text" [class.is-invalid]="titre.invalid && titre.touched" class="form-control"
+                                 name="titre" [(ngModel)]="film.titre" #titre="ngModel" required />
+                          <div class="alert alert-danger" [class.d-none]="titre.valid || titre.untouched"> Le champ titre du
+                            film est obligatoire </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="name">Description*</label>
+                          <input type="text" [class.is-invalid]="description.invalid && description.touched" class="form-control"
+                                 name="description" [(ngModel)]="film.description" #description="ngModel" required />
+                          <div class="alert alert-danger" [class.d-none]="description.valid || description.untouched"> Le champ description du
+                            film est obligatoire </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="date_naissancemodifiee">Date d'film*</label>                        
+                              <input class="form-control" name="annee" [(ngModel)]="film.annee"
+                                  id="anneemodifiee" type="date" required
+                                   [class.is-invalid]="dateRmodifiee.invalid && dateRmodifiee.touched"  #dateRmodifiee="ngModel"/>
+                              <div class="alert alert-danger" [class.d-none]="dateRmodifiee.valid || dateRmodifiee.untouched"> Le champ date d film est obligatoire</div>              
+                        </div>
+
+                        <div class="form-group">
+                          <label for="name">Duree*</label>
+                          <input class="form-control" name="duree" [(ngModel)]="film.duree"
+                          id="dureemodifiee" type="text" required
+                           [class.is-invalid]="dureeRmodifiee.invalid && dureeRmodifiee.touched"  #dureeRmodifiee="ngModel"/>
+                          <div class="alert alert-danger" [class.d-none]="dureeRmodifiee.valid || dureeRmodifiee.untouched"> Le champ duree est obligatoire</div>              
+                        </div>
+
+                        <div class="form-group">
+                          <label for="date_naissancemodifiee">trailer*</label>                        
+                              <input class="form-control" name="trailer" [(ngModel)]="film.trailer"
+                                  id="datemodifiee" type="text" required
+                                   [class.is-invalid]="anneemodifiee.invalid && anneemodifiee.touched"  #anneemodifiee="ngModel"/>
+                              <div class="alert alert-danger" [class.d-none]="anneemodifiee.valid || anneemodifiee.untouched"> Le champ date d film est obligatoire</div>              
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label" for="text-input">Poster</label>
+                          <div class="col-md-9">
+                            <input [(ngModel)]="film.poster" type="file" (change)="onSelectFile($event)" accept="image/png, image/jpeg"
+                            class="form-control" name="poster"
+                            [class.is-invalid]="postermodifier.invalid && postermodifier.touched"  #postermodifier="ngModel">
+                            <img [src]="imgURL" height="200" alt="Poster" *ngIf="imgURL">
+                            <div class="alert alert-danger" [class.d-none]="postermodifier.valid || postermodifier.untouched"> Le champ poster est obligatoire</div>              
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="event_name">Nationalite*</label>
+                          <select class="form-control" name="nationalite" id="event_name" 
+                          [(ngModel)]="film.nationalite"  (blur)="validateValue(nationaliteModifie.value)" (change)="validateValue(nationaliteModifie.value)" #nationaliteModifie="ngModel"
+                          [class.is-invalid]="valueHasError && nationaliteModifie.touched">
+                          <option *ngFor="let nationalite of nationalites" [ngValue]="nationalite">{{nationalite.libelle}}</option>
+                        </select>
+                          <div class="alert alert-danger" [class.d-none]="!valueHasError || nationaliteModifie.untouched"> Veuillez Choisir une type Event</div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="genre_name">Genre*</label>
+                          <select class="form-control" name="genre" id="genre_name" 
+                          [(ngModel)]="film.genre"  (blur)="validateValue(genreModifie.value)" (change)="validateValue(genreModifie.value)" #genreModifie="ngModel"
+                          [class.is-invalid]="valueHasError && genreModifie.touched">
+                          <option *ngFor="let genre of genres" [ngValue]="genre">{{genre.nom}}</option>
+                          </select>
+                          <div class="alert alert-danger" [class.d-none]="!valueHasError || genreModifie.untouched"> Veuillez Choisir une film</div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="statue_name">Status*</label>
+                          <select class="form-control" name="statue" id="statue_name" 
+                          [(ngModel)]="film.statue"  (blur)="validateValue(statueModifie.value)" (change)="validateValue(statueModifie.value)" #statueModifie="ngModel"
+                          [class.is-invalid]="valueHasError && statueModifie.touched">
+                          <option *ngFor="let status of allstatus" [ngValue]="status.value">{{status.value}}</option>
+                        </select>
+                          <div class="alert alert-danger" [class.d-none]="!valueHasError || statueModifie.untouched"> Veuillez Choisir une film</div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="realisateur_name">Realisateur*</label>
+                          <select class="form-control" name="realisateur" id="realisateur_name" 
+                          [(ngModel)]="film.realisateur"  (blur)="validateValue(realisateurModifie.value)" (change)="validateValue(realisateurModifie.value)" #realisateurModifie="ngModel"
+                          [class.is-invalid]="valueHasError && realisateurModifie.touched">
+                          <option *ngFor="let realisateur of realisateurs" [ngValue]="realisateur">{{realisateur.nom}}</option>
+                          </select>
+                          <div class="alert alert-danger" [class.d-none]="!valueHasError || realisateurModifie.untouched"> Veuillez Choisir une film</div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="acteurs_name">Acteurs*</label>
+                          <ng-multiselect-dropdown 
+                            name="acteurs"
+                            [(ngModel)]="selectedItems"
+                            [placeholder]="'select acteurs'"
+                            [settings]="dropdownSettings"
+                            [data]="dropdownList"
+                            [class.is-invalid]="valueHasError && acteursModifie.touched"
+                            (onSelect)="onItemSelect($event)"
+                            (blur)="validateValue(acteursModifie.value)" (change)="validateValue(acteursModifie.value)"
+                            (onSelectAll)="onSelectAll($event)"
+                            #acteursModifie="ngModel">
+                          </ng-multiselect-dropdown>
+                          <div class="alert alert-danger" [class.d-none]="!valueHasError || acteursModifie.untouched"> Veuillez Choisir les acteurs</div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </form>
+                </tab>
+              </tabset>
+            </div>
+            <!--/.col-->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="editFilm(film.id)"
+                [disabled]="ModelEditForm.form.invalid">
+          Modifier
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 
 
 
-<!--Modal-edit -- Nationalite -->
+<!--Modal-delete -- Film -->
 <div bsModal #warningDeleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [config]="{backdrop: 'static'}"
      aria-hidden="true">
   <div class="modal-dialog modal-lg modal-danger" role="document">

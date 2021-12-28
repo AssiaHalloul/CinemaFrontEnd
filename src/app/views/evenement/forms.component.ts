@@ -59,9 +59,8 @@ export class FormsComponent implements OnInit{
             Validators.required,
           ]
         ],
-        duree: ['', Validators.required],
+        duree: ['', Validators.required, Validators.pattern("^[0-9]*$")],
         poster: ['', Validators.required],
-        date: ['', Validators.required],
         film: ['', Validators.required],
         typeEvent: ['', Validators.required],
       }
@@ -128,7 +127,6 @@ export class FormsComponent implements OnInit{
     // const dataa = {
     //   titre : this.evenement.titre,
     //   description : this.evenement.description,
-    //   date: this.evenement.date,
     //   duree : this.evenement.duree,
     //   poster : this.evenement.poster,
     //   film: this.evenement.film,

@@ -5,7 +5,6 @@ export class Evenement {
     titre: string;
     duree: number;
     description: string;
-    date: Date;
     poster: string;
     film:object;
     typeEvent:object;

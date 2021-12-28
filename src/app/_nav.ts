@@ -2,11 +2,6 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Dashboard',
-    url: '/dashboard',
-    icon: 'icon-home',
-  },
-  {
     name: 'Film',
     url: '/film',
    // icon: 'icon-film',
@@ -52,6 +47,23 @@ export const navItems: INavData[] = [
       {
         name: 'Liste Seances',
         url: '/seance/tables',
+        icon: 'icon-menu'
+      },
+    ]
+  },
+  {
+    name: 'Gallerie',
+    url: '/gallerie',
+   // icon: 'icon-film',
+    children: [
+      {
+        name: 'Ajouter Gallerie',
+        url: '/gallerie/forms',
+        icon: 'icon-plus'
+      },
+      {
+        name: 'Liste Galleries',
+        url: '/gallerie/tables',
         icon: 'icon-menu'
       },
     ]

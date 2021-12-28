@@ -47,18 +47,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './_helpers';
 import { AuthenticationService, UserService } from './_services';
 import { AuthGuard } from './_guards';
-import { NationaliteModule } from './views/nationalite/nationalite.module';
-import { DashboardModule } from './views/dashboard/dashboard.module';
-import { SalleModule } from './views/salle/salle.module';
-import { SeanceModule } from './views/seance/seance.module';
-import { FilmModule } from './views/film/film.module';
-import { GenreFilmModule } from './views/genre_film/genre_film.module';
-import { NewsletterModule } from './views/newsletter/newsletter.module';
-import { PersonneModule } from './views/personne/personne.module';
-import { TypeEventModule } from './views/type_event/type_event.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
+
 
 
 @NgModule({
@@ -90,15 +81,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     P500Component,
     LoginComponent,
     RegisterComponent,
-    // NationaliteModule,
-    // DashboardModule,
-    // SalleModule,
-    // SeanceModule,
-    // FilmModule,
-    // GenreFilmModule,
-    // NewsletterModule,
-    // PersonneModule,
-    // TypeEventModule
   ],
   providers: [
     AuthGuard,

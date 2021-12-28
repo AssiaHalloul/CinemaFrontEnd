@@ -1,7 +1,8 @@
 // Angular
-import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 // Forms Component
@@ -39,18 +40,16 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 
-// navbars
-//import { NavbarsComponent } from './navbars/navbars.component';
+
 
 // Components Routing
-import { BaseRoutingModule } from './seance-routing.module';
+import {MatDialogModule} from '@angular/material/dialog';
+import { BaseRoutingModule } from './gallerie-routing.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { Ng2OrderModule } from 'ng2-order-pipe';
-import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {Ng2OrderModule} from 'ng2-order-pipe';
 
 @NgModule({
   imports: [
@@ -65,23 +64,18 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
     TooltipModule.forRoot(),
+    MatDialogModule,
     ModalModule.forRoot(),
     NgxPaginationModule,
     ReactiveFormsModule,
-    MatExpansionModule,
     MatSnackBarModule,
     Ng2SearchPipeModule,
-    Ng2OrderModule,
-    DateTimePickerModule
-    
+    Ng2OrderModule
   ],
   declarations: [
     FormsComponent,
     TablesComponent,
 
-  ],
-  providers: [
-    DatePipe,
-  ],
+  ]
 })
-export class SeanceModule { }
+export class GallerieModule { }

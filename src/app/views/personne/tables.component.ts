@@ -26,6 +26,11 @@ export class TablesComponent implements OnInit {
   roles: any = ['realisateur', 'acteur'];
   nationalites:any;
   update_nationalite:  any;
+  url="";
+  userFile ;
+  public imagePath;
+  imgURL: any;
+  public message: string;
 
   @ViewChild('warningModal') public warningModal: ModalDirective;
   @ViewChild('warningDeleteModal') public warningDeleteModal: ModalDirective;
@@ -90,6 +95,28 @@ export class TablesComponent implements OnInit {
         });
   }
 
+  onSelectFile(event) {
+    if (event.target.files.length > 0)
+    {
+      const file = event.target.files[0];
+      this.userFile = file;
+      // this.f['profile'].setValue(file);
+
+      var mimeType = event.target.files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
+      }
+
+      var reader = new FileReader();
+
+      this.imagePath = file;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+      }
+    }
+  }
 
   id: number;
   showEditModal(personne) {
@@ -102,7 +129,10 @@ export class TablesComponent implements OnInit {
   }
 
   editPersonne(id): void {
-    this.personneService.updatePersonne(id, this.personne).subscribe(res => {
+    const formData = new FormData();
+   formData.append('personne',JSON.stringify(this.personne));
+   formData.append('file',this.userFile);
+    this.personneService.updatePersonne(id, formData).subscribe(res => {
       this.warningModal.hide();
       this.getPersonnes();
        this._snackBar.open(" personne well updated  ",'cancel',{duration: this.durationInSeconds * 700 });

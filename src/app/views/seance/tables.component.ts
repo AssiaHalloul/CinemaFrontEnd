@@ -113,7 +113,20 @@ export class TablesComponent implements OnInit {
   }
 
   editSeance(id): void {
+    this.seance.film = (this.seance.film == "NULL") ? null : this.seance.film;
+    this.seance.evenement = (this.seance.evenement == "NULL") ? null : this.seance.evenement;
+    if(this.seance.film ==null && this.seance.evenement ==null){
+      this._snackBar.open("ajouter un film ou evenement 1",'cancel',{duration: this.durationInSeconds * 700 });
+      this.getSeances();
+      return;
+    }
+    if(this.seance.film != null && this.seance.evenement != null){
+      this._snackBar.open("ajouter un film ou evenement",'cancel',{duration: this.durationInSeconds * 700 });
+      this.getSeances();
+      return;
+    }
     this.seanceService.updateSeance(id, this.seance).subscribe(res => {
+      console.log("update........");
       this.warningModal.hide();
       this.getSeances();
        this._snackBar.open(" Seance well updated  ",'cancel',{duration: this.durationInSeconds * 700 });

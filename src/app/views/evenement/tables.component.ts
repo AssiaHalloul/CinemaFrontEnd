@@ -24,6 +24,11 @@ export class TablesComponent implements OnInit {
   titres:any;
   films:any;
   eventtypes:any;
+  url="";
+  userFile ;
+  public imagePath;
+  imgURL: any;
+  public message: string;
 
   @ViewChild('warningModal') public warningModal: ModalDirective;
   @ViewChild('warningDeleteModal') public warningDeleteModal: ModalDirective;
@@ -95,6 +100,31 @@ export class TablesComponent implements OnInit {
         });
   }
 
+  onSelectFile(event) {
+    if (event.target.files.length > 0)
+    {
+      const file = event.target.files[0];
+      this.userFile = file;
+      // this.f['profile'].setValue(file);
+
+      var mimeType = event.target.files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
+      }
+
+      var reader = new FileReader();
+
+      this.imagePath = file;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+      }
+    }
+
+
+  }
+
   id: number;
   showEditModal(evenement) {
     this.evenement = evenement;
@@ -104,7 +134,10 @@ export class TablesComponent implements OnInit {
   }
 
   editEvenement(id): void {
-    this.evenementService.updateEvenement(id, this.evenement).subscribe(res => {
+    const formData = new FormData();
+    formData.append('evenement',JSON.stringify(this.evenement));
+    formData.append('file',this.userFile);
+    this.evenementService.updateEvenement(id, formData).subscribe(res => {
       this.warningModal.hide();
       this.getEvenements();
        this._snackBar.open(" evenement well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
