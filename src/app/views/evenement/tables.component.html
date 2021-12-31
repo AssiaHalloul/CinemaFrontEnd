@@ -65,15 +65,15 @@
                   src = "{{this.evenementService.host+'/Images/evenements/'+evenement.poster}}"
                   style = "height :250px;width:200px ; align-content: center; text-align: center "
                   alt="" />
-                </td>      
+                </td>
                 <td>
-                  <button type="button" class="btn btn-sm btn-warning tooltip-test"                      
-                  data-toggle="modal"  data-keyboard="false" data-backdrop="static"                  
+                  <button type="button" class="btn btn-sm btn-warning tooltip-test"
+                  data-toggle="modal"  data-keyboard="false" data-backdrop="static"
                   title="Modifier ce evenement" mat-button  (click)="showEditModal(evenement)">
                     <i class="icon-note"></i>
                   </button>
                   <button type="button" class="btn btn-sm btn-danger tooltip-test"
-                    data-keyboard="false" data-backdrop="static" data-toggle="modal" 
+                    data-keyboard="false" data-backdrop="static" data-toggle="modal"
                     title="Supprimer ce evenement" mat-button (click)="showDeleteModal(evenement)">
                     <i class="icon-trash"></i>
                   </button>
@@ -134,7 +134,7 @@
                             class="form-control" name="poster"
                             [class.is-invalid]="postermodifier.invalid && postermodifier.touched"  #postermodifier="ngModel">
                             <img [src]="imgURL" height="200" alt="Poster" *ngIf="imgURL">
-                            <div class="alert alert-danger" [class.d-none]="postermodifier.valid || postermodifier.untouched"> Le champ poster est obligatoire</div>              
+                            <div class="alert alert-danger" [class.d-none]="postermodifier.valid || postermodifier.untouched"> Le champ poster est obligatoire</div>
                           </div>
                         </div>
 
@@ -143,13 +143,13 @@
                           <input class="form-control" name="duree" [(ngModel)]="evenement.duree"
                           id="dureemodifiee" type="duree" required
                            [class.is-invalid]="dureeRmodifiee.invalid && dureeRmodifiee.touched"  #dureeRmodifiee="ngModel"/>
-                          <div class="alert alert-danger" [class.d-none]="dureeRmodifiee.valid || dureeRmodifiee.untouched"> Le champ duree est obligatoire</div>              
+                          <div class="alert alert-danger" [class.d-none]="dureeRmodifiee.valid || dureeRmodifiee.untouched"> Le champ duree est obligatoire</div>
                           <div class="alert alert-danger" [class.d-none]="!valueHasError || dureeRmodifiee.untouched"> Veuillez Choisir un duree</div>
                         </div>
 
                         <div class="form-group">
                           <label for="event_name">type Event*</label>
-                          <select class="form-control" name="typeEvent" id="event_name" 
+                          <select class="form-control" name="typeEvent" id="event_name"
                           [(ngModel)]="evenement.typeEvent"  (blur)="validateValue(typeEventModifie.value)" (change)="validateValue(typeEventModifie.value)" #typeEventModifie="ngModel"
                           [class.is-invalid]="valueHasError && typeEventModifie.touched">
                           <option *ngFor="let eventtype of eventtypes" [ngValue]="eventtype">{{eventtype.type_event}}</option>
@@ -159,7 +159,7 @@
 
                         <div class="form-group">
                           <label for="film_name">Film*</label>
-                          <select class="form-control" name="film" id="film_name" 
+                          <select class="form-control" name="film" id="film_name"
                           [(ngModel)]="evenement.film"  (blur)="validateValue(filmModifie.value)" (change)="validateValue(filmModifie.value)" #filmModifie="ngModel"
                           [class.is-invalid]="valueHasError && filmModifie.touched">
                           <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
@@ -184,16 +184,8 @@
         </button>
       </div>
     </div>
-    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
-
-
-
-
-
 <!--Modal-edit -- Personne -->
 <div bsModal #warningDeleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" [config]="{backdrop: 'static'}"
      aria-hidden="true">
@@ -222,11 +214,8 @@
         </button>
       </div>
     </div>
-    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
 
 <style>
   #libelle-search-input{
@@ -235,12 +224,12 @@
       border-radius: 6px;
       background-color: #fff;
   }
-  
+
   #libelle-search-input input{
       border: 0;
       box-shadow: none;
   }
-  
+
   #libelle-search-input button{
       margin: 2px 0 0 0;
       background: none;
@@ -250,13 +239,13 @@
       padding: 0 8px 0 10px;
       border-left: solid 1px #ccc;
   }
-  
+
   #libelle-search-input button:hover{
       border: 0;
       box-shadow: none;
       border-left: solid 1px #ccc;
   }
-  
+
   #libelle-search-input .glyphicon-search{
       font-size: 23px;
   }

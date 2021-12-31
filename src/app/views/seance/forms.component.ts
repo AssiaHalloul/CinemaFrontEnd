@@ -47,18 +47,15 @@ export class FormsComponent implements OnInit{
   seance: Seance = new Seance();
   hour;
 
-  // datetime 
+  // datetime
   public minDate: Date = new Date();
-  // public maxDate: Date = new Date ("05/27/2017 11:00 AM");
-  //public dateValue: Date = new Date ("05/16/2017 5:00 AM");
-
   form: FormGroup;
   submitted = false;
   todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   currentDate;
 
   ngOnInit() {
-    
+
     this.form = this.formBuilder.group(
       {
         date: ['', Validators.required],
@@ -128,7 +125,7 @@ export class FormsComponent implements OnInit{
       this.gotoList();
       this._snackBar.open("seance well add",'cancel',{duration: this.durationInSeconds * 700 });
 
-    }, 
+    },
     error => {console.log(error);
     this._snackBar.open(" Something was wrong ",'cancel',{duration: this.durationInSeconds * 700 });
     });

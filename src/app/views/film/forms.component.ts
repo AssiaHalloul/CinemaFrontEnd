@@ -51,7 +51,6 @@ export class FormsComponent implements OnInit{
   constructor(private genreService: GenreService,private filmService: FilmService,private nationaliteService: NationaliteService,private personneService: PersonneService,
               private router: Router,private formBuilder: FormBuilder,private _snackBar: MatSnackBar
               ) {
-                
               }
 
   isCollapsed: boolean = false;
@@ -88,6 +87,7 @@ export class FormsComponent implements OnInit{
     this.getGenres();
     this.getRealisateur();
 
+    // validations of the fields
     this.form = this.formBuilder.group(
       {
         titre: ['', Validators.required],
@@ -118,6 +118,7 @@ export class FormsComponent implements OnInit{
 
 
 
+  // this function allow us to get list of all nationalites
   getNationalities(){
     this.nationaliteService.getNationalites().subscribe(res => {
       this.nationalites = res;
@@ -125,6 +126,7 @@ export class FormsComponent implements OnInit{
     });
   }
 
+  // this function allow us to get list of all actors
   getActeurs() : Array<any>{
     this.personneService.getActeurs().subscribe(res => {
       this.dropdownList = res;
@@ -137,18 +139,20 @@ export class FormsComponent implements OnInit{
   }
 
 
+  // this function allow us to get list of all filmMakers
   getRealisateur(){
     this.personneService.getRealisateurs().subscribe(res => {
       this.realisateurs = res;
     });
   }
 
+  // this function allow us to get list of all film types
   getGenres(){
     this.genreService.getGenres().subscribe(res => {
       this.genres = res;
     });
   }
-
+  // this function allow us to get list of all films
   getFilms(){
     this.filmService.getFilms().subscribe(res => {
       this.films = res;
@@ -159,6 +163,7 @@ export class FormsComponent implements OnInit{
     return this.form.controls;
   }
 
+  // this function allow us upload images
   onSelectFile(event) {
     if (event.target.files.length > 0)
     {
@@ -199,7 +204,6 @@ export class FormsComponent implements OnInit{
         readerfiles.readAsDataURL(files[i]);
       }
     }
-    //event.srcElement.value=null;
   }
 
   onSubmit() {
@@ -246,6 +250,6 @@ export class FormsComponent implements OnInit{
     this.router.navigate(['/film/tables']);
   }
 
-  
+
 
 }

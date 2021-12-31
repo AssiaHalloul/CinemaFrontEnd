@@ -1,6 +1,3 @@
-import {Film} from './film.model';
-import {Evenement} from './evenement.model';
-
 export class Gallerie {
 
   id: number;

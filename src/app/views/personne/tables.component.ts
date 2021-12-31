@@ -7,7 +7,6 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { NationaliteService } from '../../_services/nationaliteService/nationalite.service';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -76,7 +75,6 @@ export class TablesComponent implements OnInit {
 
   showDeleteModal(personne) {
     this.personne.id = personne.id;
-    //this.personne.libelle = personne.libelle;
     this.warningDeleteModal.show();
   }
 
@@ -124,7 +122,7 @@ export class TablesComponent implements OnInit {
     this.nationaliteService.getNationalites().subscribe(res => {
       this.nationalites = res;
     });
-    
+
     this.warningModal.show();
   }
 
@@ -142,7 +140,7 @@ export class TablesComponent implements OnInit {
       });
   }
 
- 
+
 
   valueHasError = true;
   validateValue(value) {

@@ -1,7 +1,3 @@
-import {Nationalite} from './nationalite.model';
-import {Personne} from './personne.model';
-import {Genre} from './genre.model';
-
 export class Film {
 
   id: number;
@@ -16,5 +12,5 @@ export class Film {
   genre: object;
   realisateur: object;
   acteurs: object;
-  galleries:object;
+  galleries: object;
 }

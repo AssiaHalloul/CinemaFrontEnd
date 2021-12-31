@@ -4,7 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Seance } from '../../models/seance.model';
-import { SeanceService } from '../../_services/SeanceService/seance.service';
+import { SeanceService } from '../../_services/seanceService/seance.service';
 import { EvenementService } from '../../_services/evenementService/evenement.service';
 import { FilmService } from '../../_services/filmService/film.service';
 import { SalleService } from '../../_services/salleService/salle.service';
@@ -136,7 +136,7 @@ export class TablesComponent implements OnInit {
       });
   }
 
- 
+
 
   valueHasError = true;
   validateValue(value) {

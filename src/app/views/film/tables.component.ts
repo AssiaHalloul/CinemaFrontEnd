@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Film } from '../../models/film.model';
 import { FilmService } from '../../_services/filmService/film.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Nationalite} from '../../models/nationalite.model';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NationaliteService } from '../../_services/nationaliteService/nationalite.service';
 import { PersonneService } from '../../_services/personneService/personne.service';
@@ -131,7 +129,7 @@ export class TablesComponent implements OnInit {
           this.warningDeleteModal.hide();
           this._snackBar.open(" FilmModule well deleted  ",'cancel',{duration: this.durationInSeconds * 700 });
         },
-        error => 
+        error =>
         {console.log(error);
         this._snackBar.open(" this film is already used ",'cancel',{duration: this.durationInSeconds * 700 });
         });
@@ -148,7 +146,7 @@ export class TablesComponent implements OnInit {
 
   id: number;
   showEditModal(film) {
-    
+
       this.selectedItems = film.acteurs;
       this.dropdownList = this.getActeurs();
       this.dropdownSettings = {
@@ -169,12 +167,12 @@ export class TablesComponent implements OnInit {
       this.film.description = film.description;
       this.film.annee = film.annee;
       this.film.genre = film.genre;
-      
+
       this.film.nationalite = film.nationalite;
       this.film.realisateur = film.realisateur;
       this.warningModal.show();
     }
-  
+
   showDeleteModal(film) {
     this.film.id = film.id;
     this.film.titre = film.titre;
@@ -186,7 +184,7 @@ export class TablesComponent implements OnInit {
       this.warningDeleteModal.show();
   }
 
-  
+
   onSelectFile(event) {
     if (event.target.files.length > 0)
     {

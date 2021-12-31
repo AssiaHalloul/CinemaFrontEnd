@@ -80,7 +80,6 @@ export class TablesComponent implements OnInit {
     this.reverse=!this.reverse;
   }
   Search() {
-    // tslint:disable-next-line:triple-equals
     if (this.titres == '' ) {
       this.ngOnInit();
     }else{
@@ -124,19 +123,6 @@ export class TablesComponent implements OnInit {
     this._snackBar.open(" this gallerie is already used ",'cancel',{duration: this.durationInSeconds * 700 });
 
   }
-  //
-  // onSubmit() {
-  //   const formData = new  FormData();
-  //   formData.append('gallerie', JSON.stringify(this.gallerie));
-  //   formData.append('file',this.userFile);
-  //   this.gallerieService.updateGallerie(this.gallerie.id, formData).subscribe(data => {
-  //       console.log(data)
-  //       this.gallerie = new Gallerie();
-  //       this.galleries();
-  //     },
-  //     error => console.log(error));
-  // }
-
   id: number;
   showEditModal(gallerie) {
     this.gallerie.id = gallerie.id;

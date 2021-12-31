@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Nationalite } from '../../models/nationalite.model';
 import { Personne } from '../../models/personne.model';
 import { NationaliteService } from '../../_services/nationaliteService/nationalite.service';
 import { PersonneService } from '../../_services/personneService/personne.service';
@@ -90,8 +89,6 @@ export class FormsComponent implements OnInit{
     {
       const file = event.target.files[0];
       this.userFile = file;
-      // this.f['profile'].setValue(file);
-
       var mimeType = event.target.files[0].type;
       if (mimeType.match(/image\/*/) == null) {
         this.message = "Only images are supported.";
@@ -117,13 +114,6 @@ export class FormsComponent implements OnInit{
     this.personne =this.form.value;
     formData.append('personne',JSON.stringify(this.personne));
     formData.append('file',this.userFile);
-    // const dataa = {
-    //   nom : this.personne.nom,
-    //   prenom : this.personne.prenom,
-    //   type: this.personne.type,
-    //   date_naissance : this.personne.date_naissance,
-    //   nationalite :this.personne.nationalite,
-    // }
     this.personneService.createPersonne(formData).subscribe(data => {
       this.personne = new Personne();
       this.getPersonnes();

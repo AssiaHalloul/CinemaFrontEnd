@@ -168,10 +168,10 @@
               </div>
             </div>
 
-            <div class="form-group row"> 
+            <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Acteur</label>
               <div class="col-md-9">
-                <ng-multiselect-dropdown 
+                <ng-multiselect-dropdown
                   name="acteurs"
                   formControlName="acteurs"
                   [placeholder]="'select acteurs'"
@@ -187,13 +187,13 @@
               </div>
             </div>
 
-            <div class="form-group row"> 
+            <div class="form-group row">
               <label class="col-md-3 col-form-label" for="text-input">Gallerie Film</label>
               <div class="col-md-9">
                   <input type="file" formControlName="galleries" name="galleries"
                   (change)="fileuploads($event)" multiple class="form-control" style="height: 100%;" accept="image/png, image/jpeg">
               </div>
-              <div *ngFor="let image of images"> 
+              <div *ngFor="let image of images">
                 <img [src]="image" style="height: 30px;width: 30px; border-radius: 50%;" alt="Poster" *ngIf="image">
               </div>
             </div>
@@ -207,7 +207,7 @@
       </div>
 
     </div>
-  </div><!--/.row-->
+  </div>
 
 </div>
 

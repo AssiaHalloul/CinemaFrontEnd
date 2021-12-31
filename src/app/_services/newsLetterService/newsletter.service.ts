@@ -13,27 +13,28 @@ export class NewsletterService {
 
   constructor(private http: HttpClient) { }
 
+  // this function allow us to get list of all newsletters
   getNewsletters(): Observable<Newsletter[]> {
     return this.http.get<Newsletter[]>(`${baseUrl}/`);
   }
 
+  // this function allow us to get list of all newsletters by id
   getNewsletter(id: any): Observable<any> {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
+  // this function allow us to create a newsletter
   createNewsletter(data: any): Observable<any> {
     return this.http.post(baseUrl + '/', data);
   }
 
+  // this function allow us to update a newsletter
   updateNewsletter(id: any, data: any): Observable<any> {
     return this.http.put(`${baseUrl}/${id}`, data);
   }
 
+  // this function allow us to delete a newsletter
   deleteNewsletter(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}`);
   }
-
-  // findNationaliteByLibelle(libelle: any): Observable<Nationalite[]> {
-  //   return this.http.get<Nationalite[]>(`${baseUrl}?libelle=${libelle}`);
-  // }
 }

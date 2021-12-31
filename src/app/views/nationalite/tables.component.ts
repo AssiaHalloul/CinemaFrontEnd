@@ -59,7 +59,6 @@ export class TablesComponent implements OnInit {
 
   showDeleteModal(nationalite) {
     this.nationalite.id = nationalite.id;
-    //this.nationalite.libelle = nationalite.libelle;
     this.warningDeleteModal.show();
   }
 
@@ -83,7 +82,7 @@ export class TablesComponent implements OnInit {
       console.log(data)
       this.nationalite = new Nationalite();
       this.getNationalites();
-    }, 
+    },
     error => console.log(error));
   }
 

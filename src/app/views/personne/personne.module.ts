@@ -39,9 +39,6 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 
-// navbars
-//import { NavbarsComponent } from './navbars/navbars.component';
-
 // Components Routing
 import { BaseRoutingModule } from './personne-routing.module';
 import { ModalModule } from 'ngx-bootstrap/modal';

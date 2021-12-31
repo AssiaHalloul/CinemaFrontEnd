@@ -6,7 +6,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { Evenement } from '../../models/evenement.model';
 import { EvenementService } from '../../_services/evenementService/evenement.service';
 import { FilmService } from '../../_services/filmService/film.service';
-import { EventtypeService } from '../../_services/eventtypeService/eventtype.service';
+import {EventtypeService} from '../../_services/eventTypeService/eventtype.service';
+
 
 
 @Component({
@@ -42,6 +43,7 @@ export class TablesComponent implements OnInit {
     this.getEvenements();
   }
 
+  // get list of all evenements
   getEvenements(){
     this.evenementService.getEvenements().subscribe(res => {
       console.log(res);
@@ -50,12 +52,13 @@ export class TablesComponent implements OnInit {
     });
   }
 
+  // get list of all films
   getFilms(){
     this.filmService.getFilms().subscribe(res => {
       this.films = res;
     });
   }
-
+  // get list of all evenements type
   getEventsTypes(){
     this.eventTypeService.getEventTypes().subscribe(res => {
       this.eventtypes = res;
@@ -105,8 +108,6 @@ export class TablesComponent implements OnInit {
     {
       const file = event.target.files[0];
       this.userFile = file;
-      // this.f['profile'].setValue(file);
-
       var mimeType = event.target.files[0].type;
       if (mimeType.match(/image\/*/) == null) {
         this.message = "Only images are supported.";
@@ -121,8 +122,6 @@ export class TablesComponent implements OnInit {
         this.imgURL = reader.result;
       }
     }
-
-
   }
 
   id: number;
@@ -142,7 +141,7 @@ export class TablesComponent implements OnInit {
       this.getEvenements();
        this._snackBar.open(" evenement well updated  ",'cancel',{duration: this.durationInSeconds * 700 });
       },
-      error =>{ 
+      error =>{
       console.log(error);
       this._snackBar.open(" Something was wrong",'cancel',{duration: this.durationInSeconds * 700 });
       });

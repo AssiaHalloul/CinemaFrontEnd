@@ -1,5 +1,3 @@
-import { FilmModule } from "../views/film/film.module";
-
 export class Evenement {
     id: number;
     titre: string;

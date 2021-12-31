@@ -4,7 +4,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>Ajouter un seance</strong> 
+          <strong>Ajouter un seance</strong>
           <div class="float-right">
             <button class="btn btn-sm btn-secondary tooltip-test" [routerLink]="['/seance/tables']"
             title="Filtrer" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -18,13 +18,10 @@
             <label class="col-md-3 col-form-label" for="text-input">Film</label>
             <div class="col-md-9">
               <select id="select1" name="film" class="form-control" formControlName="film"
-              class="form-control" > 
+              class="form-control" >
               <option value="null" selected disabled>Select film</option>
               <option *ngFor="let film of films" [ngValue]="film">{{film.titre}}</option>
               </select>
-              <!-- <div *ngIf="submitted && f.film.errors" class="invalid-feedback">
-                <div *ngIf="f.film.errors.required">film is required</div>
-              </div> -->
             </div>
           </div>
           <div class="form-group row">
@@ -36,26 +33,8 @@
                 <option value="null" selected disabled>Select Evenement</option>
                 <option *ngFor="let evenement of evenements" [ngValue]="evenement">{{evenement.titre}}</option>
               </select>
-              <!-- <div *ngIf="submitted && f.evenement.errors" class="invalid-feedback">
-                <div *ngIf="f.evenement.errors.required">Evenement is required</div>
-              </div> -->
             </div>
           </div>
-          <!-- <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="dateevent">Date<span style="color: red;">*</span></label>
-            <div class="col-md-9">
-              <input
-                type="date" placeholder="Entrer date d'evenement ..." id="dateevent" [min]="todayDate"
-                formControlName="date"
-                class="form-control"
-                name="date"
-                [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
-              />
-              <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-                <div *ngIf="f.date.errors.required">date de seance is required</div>
-              </div>
-            </div>
-          </div> -->
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="dateevent">Heure de debut<span style="color: red;">*</span></label>
             <div class="col-md-9">

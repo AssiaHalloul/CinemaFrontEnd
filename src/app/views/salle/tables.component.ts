@@ -20,7 +20,7 @@ export class TablesComponent implements OnInit{
   page: number = 1;
   num:any;
   nums:any;
-  
+
   @ViewChild('warningModal') public warningModal: ModalDirective;
   @ViewChild('warningDeleteModal') public warningDeleteModal: ModalDirective;
 
@@ -32,7 +32,7 @@ export class TablesComponent implements OnInit{
     ngOnInit() {
       this.getSalles();
     }
-  
+
     getSalles(){
       this.salleService.getSalles().subscribe(res => {
         this.salles = res;
@@ -46,7 +46,7 @@ export class TablesComponent implements OnInit{
       this.key=key;
       this.reverse=!this.reverse;
     }
-  
+
     Search(){
       if(this.nums == ""){
         this.ngOnInit();
@@ -58,13 +58,12 @@ export class TablesComponent implements OnInit{
       }
     }
 
-    
+
   showDeleteModal(salle) {
     this.salle.id = salle.id;
-    //this.nationalite.libelle = nationalite.libelle;
     this.warningDeleteModal.show();
   }
-  
+
     deleteSalle(id) {
       this.salleService.deleteSalle(id)
         .subscribe(

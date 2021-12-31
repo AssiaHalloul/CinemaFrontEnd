@@ -1,7 +1,7 @@
 export class Seance {
-    id:number;
+    id: number;
     date: Date;
-    film:Object;
-    evenement:Object;
-    salle:Object;
+    film: Object;
+    evenement: Object;
+    salle: Object;
 }

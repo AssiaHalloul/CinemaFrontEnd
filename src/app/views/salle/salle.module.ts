@@ -40,8 +40,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-// navbars
-//import { NavbarsComponent } from './navbars/navbars.component';
 
 // Components Routing
 import { BaseRoutingModule } from './salle-routing.module';
